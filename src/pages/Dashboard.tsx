@@ -12,7 +12,8 @@ import {
   AlertTriangle,
   FileCheck,
   ArrowRight,
-  RefreshCw
+  RefreshCw,
+  Map
 } from "lucide-react";
 
 const stats = [
@@ -132,11 +133,17 @@ export default function Dashboard() {
             {/* Quick Actions */}
             <div className="mt-6 rounded-2xl border border-border bg-card p-6 shadow-sm">
               <h3 className="mb-4 text-lg font-semibold text-foreground">Quick Actions</h3>
-              <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+              <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-4">
                 <Button variant="outline" className="h-auto flex-col gap-2 py-4" asChild>
                   <a href="/risk-assessment">
                     <Activity className="h-5 w-5 text-primary" />
                     <span>Risk Assessment</span>
+                  </a>
+                </Button>
+                <Button variant="outline" className="h-auto flex-col gap-2 py-4" asChild>
+                  <a href="/disease-map">
+                    <Map className="h-5 w-5 text-destructive" />
+                    <span>Outbreak Map</span>
                   </a>
                 </Button>
                 <Button variant="outline" className="h-auto flex-col gap-2 py-4" asChild>

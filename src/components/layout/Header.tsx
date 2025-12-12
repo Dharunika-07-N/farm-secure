@@ -7,6 +7,7 @@ import { NavLink } from "@/components/NavLink";
 const navItems = [
   { label: "Dashboard", href: "/dashboard" },
   { label: "Risk Assessment", href: "/risk-assessment" },
+  { label: "Disease Map", href: "/disease-map" },
   { label: "Training", href: "/training" },
   { label: "Alerts", href: "/alerts" },
   { label: "Compliance", href: "/compliance" },
