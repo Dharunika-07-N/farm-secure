@@ -1,0 +1,105 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id         String   @id @default(uuid())
+  email      String   @unique
+  password   String
+  firstName  String
+  lastName   String
+  phone      String?
+  role       Role     @default(FARMER)
+  isVerified Boolean  @default(false)
+  farms      Farm[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Farm {
+  id           String        @id @default(uuid())
+  name         String
+  location     String
+  size         Float
+  sizeUnit     String        @default("acres")
+  description  String?
+  imageUrl     String?
+  userId       String
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  crops        Crop[]
+  transactions Transaction[]
+  inventory    Inventory[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Crop {
+  id           String     @id @default(uuid())
+  name         String
+  variety      String?
+  plantingDate DateTime
+  harvestDate  DateTime?
+  status       CropStatus @default(PLANTED)
+  area         Float
+  farmId       String
+  farm         Farm       @relation(fields: [farmId], references: [id], onDelete: Cascade)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model Transaction {
+  id          String          @id @default(uuid())
+  type        TransactionType
+  category    String
+  amount      Float
+  description String?
+  date        DateTime
+  farmId      String
+  farm        Farm            @relation(fields: [farmId], references: [id], onDelete: Cascade)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}
+
+model Inventory {
+  id            String            @id @default(uuid())
+  itemName      String
+  quantity      Float
+  unit          String
+  category      InventoryCategory
+  lowStockAlert Float?
+  farmId        String
+  farm          Farm              @relation(fields: [farmId], references: [id], onDelete: Cascade)
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+}
+
+enum Role {
+  ADMIN
+  FARMER
+  INSPECTOR
+}
+
+enum CropStatus {
+  PLANTED
+  GROWING
+  HARVESTED
+  FAILED
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+}
+
+enum InventoryCategory {
+  SEEDS
+  FERTILIZER
+  PESTICIDE
+  EQUIPMENT
+  OTHER
+}
