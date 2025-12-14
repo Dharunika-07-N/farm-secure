@@ -2,7 +2,7 @@ import { Prisma } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import prisma from '@/utils/prisma';
-import ApiError from '@/utils/ApiError';
+import { ApiError } from '@/utils/ApiError';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-super-secret-jwt-key';
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
@@ -28,7 +28,8 @@ export const registerUser = async (userBody: Prisma.UserCreateInput) => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { password, ...userWithoutPassword } = user;
-  return userWithoutPassword;
+  const token = jwt.sign({ sub: user.id, role: user.role }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN as any });
+  return { user: userWithoutPassword, token };
 };
 
 /**
@@ -45,7 +46,7 @@ export const loginUser = async (email: string, pass: string) => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { password, ...userWithoutPassword } = user;
-  const token = jwt.sign({ sub: user.id, role: user.role }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+  const token = jwt.sign({ sub: user.id, role: user.role }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN as any });
 
   return { user: userWithoutPassword, token };
 };

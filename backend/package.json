@@ -4,7 +4,7 @@
   "description": "Backend for the Farm-Secure application",
   "main": "dist/server.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
     "test": "jest",
@@ -21,6 +21,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@googlemaps/google-maps-services-js": "^3.4.2",
+    "@prisma/client": "^5.22.0",
+    "@types/node-fetch": "^2.6.13",
+    "axios": "^1.13.2",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -30,10 +34,12 @@
     "jsonwebtoken": "^9.0.2",
     "multer": "1.4.5-lts.1",
     "node-cron": "^3.0.3",
-    "nodemailer": "^6.9.14",
+    "node-fetch": "^2.7.0",
+    "nodemailer": "^6.10.1",
     "pg": "^8.12.0",
     "pino": "^9.2.0",
     "redis": "^4.6.15",
+    "rss-parser": "^3.13.0",
     "socket.io": "^4.7.5",
     "winston": "^3.13.1",
     "zod": "^3.23.8"
@@ -47,7 +53,7 @@
     "@types/multer": "^1.4.11",
     "@types/node": "^20.14.10",
     "@types/node-cron": "^3.0.11",
-    "@types/nodemailer": "^6.4.15",
+    "@types/nodemailer": "^6.4.21",
     "@types/pg": "^8.11.6",
     "@typescript-eslint/eslint-plugin": "^7.16.0",
     "@typescript-eslint/parser": "^7.16.0",
@@ -56,6 +62,7 @@
     "prisma": "^5.17.0",
     "ts-jest": "^29.2.2",
     "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.5.3"
   }
 }
