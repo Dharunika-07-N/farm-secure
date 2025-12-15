@@ -39,13 +39,11 @@ export const protect = asyncHandler(async (req: Request, res: Response, next: Ne
 
             next();
         } catch (error) {
-            res.status(401);
-            throw new Error('Not authorized, token failed');
+            throw new ApiError(401, 'Not authorized, token failed');
         }
     }
 
     if (!token) {
-        res.status(401);
-        throw new Error('Not authorized, no token');
+        throw new ApiError(401, 'Not authorized, no token');
     }
 });

@@ -8,38 +8,56 @@ generator client {
 }
 
 model User {
-  id         String   @id @default(uuid())
-  email      String   @unique
-  password   String
-  firstName  String
-  lastName   String
-  phone      String?
-  role       Role     @default(FARMER)
-  isVerified Boolean  @default(false)
-  farms      Farm[]
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id            String    @id @default(uuid())
+  email         String    @unique
+  password      String
+  firstName     String
+  lastName      String
+  phone         String?
+  role          Role      @default(FARMER)
+  isVerified    Boolean   @default(false)
+  avatarUrl     String?
+  language      String    @default("en")
+  address       String?
+  jobTitle      String?   // e.g. "Senior Farmer", "Owner"
+  
+  // Notification Settings
+  emailNotifications    Boolean   @default(true)
+  smsNotifications      Boolean   @default(true)
+  whatsappNotifications Boolean   @default(false)
+  
+  // Privacy Settings
+  shareData             Boolean   @default(true)
+
+  farms         Farm[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
 
 model Farm {
-  id           String        @id @default(uuid())
-  name         String
-  location     String
-  latitude     Float?
-  longitude    Float?
-  size         Float
-  sizeUnit     String        @default("acres")
-  description  String?
-  imageUrl     String?
-  userId       String
-  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  crops        Crop[]
-  transactions Transaction[]
-  inventory    Inventory[]
-  alerts       Alert[]
-  compliance   Compliance[]
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+  id                 String        @id @default(uuid())
+  name               String
+  registrationNumber String?
+  location           String
+  latitude           Float?
+  longitude          Float?
+  size               Float
+  sizeUnit           String        @default("acres")
+  livestockType      String?       // "Poultry", "Pig", "Mixed"
+  animalCount        Int?
+  establishmentDate  DateTime?
+  infrastructure     String?       // JSON string or text description for now
+  description        String?
+  imageUrl           String?
+  userId             String
+  user               User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  crops              Crop[]
+  transactions       Transaction[]
+  inventory          Inventory[]
+  alerts             Alert[]
+  compliance         Compliance[]
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
 }
 
 model Crop {

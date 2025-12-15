@@ -22,3 +22,15 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
     token,
   });
 });
+
+export const updateProfile = asyncHandler(async (req: Request, res: Response) => {
+  if (!req.user) throw new Error("User not authenticated");
+
+  const updatedUser = await authService.updateUser(req.user.id, req.body);
+
+  res.status(200).json({
+    success: true,
+    message: 'Profile updated successfully',
+    user: updatedUser
+  });
+});

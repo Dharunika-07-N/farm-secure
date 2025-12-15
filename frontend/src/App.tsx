@@ -13,6 +13,8 @@ import DiseaseMap from "./pages/DiseaseMap";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Profile from "./pages/Profile";
+import HelpSupport from "./pages/HelpSupport";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +34,8 @@ const App = () => (
           <Route path="/alerts" element={<Alerts />} />
           <Route path="/compliance" element={<Compliance />} />
           <Route path="/disease-map" element={<DiseaseMap />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/help-support" element={<HelpSupport />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

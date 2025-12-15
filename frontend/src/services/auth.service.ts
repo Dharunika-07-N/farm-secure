@@ -6,6 +6,17 @@ export interface User {
     firstName: string;
     lastName: string;
     role: string;
+    farms?: {
+        id: string;
+        name: string;
+        location: string;
+        size: number;
+        sizeUnit: string;
+    }[];
+    emailNotifications?: boolean;
+    smsNotifications?: boolean;
+    whatsappNotifications?: boolean;
+    shareData?: boolean;
 }
 
 export interface AuthResponse {
@@ -44,4 +55,18 @@ export const getCurrentUser = (): User | null => {
     const userStr = localStorage.getItem('user');
     if (userStr) return JSON.parse(userStr);
     return null;
+};
+
+export const updateProfile = async (data: Partial<User>) => {
+    const response = await api.patch<{ success: boolean; message: string; user: User }>('/auth/profile', data);
+    if (response.data.success) {
+        // Update local storage with new user data
+        const currentUser = getCurrentUser();
+        if (currentUser) {
+            // Merge existing data with new data (to keep fields not returned if any, though backend should return full object)
+            // Ideally backend returns the fresh full object.
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+        }
+    }
+    return response.data;
 };

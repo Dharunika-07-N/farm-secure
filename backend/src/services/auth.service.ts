@@ -39,7 +39,10 @@ export const registerUser = async (userBody: Prisma.UserCreateInput) => {
  * @returns {Promise<{user: Omit<User, 'password'>, token: string}>}
  */
 export const loginUser = async (email: string, pass: string) => {
-  const user = await prisma.user.findUnique({ where: { email } });
+  const user = await prisma.user.findUnique({
+    where: { email },
+    include: { farms: true },
+  });
   if (!user || !(await bcrypt.compare(pass, user.password))) {
     throw new ApiError(401, 'Incorrect email or password');
   }
@@ -49,4 +52,16 @@ export const loginUser = async (email: string, pass: string) => {
   const token = jwt.sign({ sub: user.id, role: user.role }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN as any });
 
   return { user: userWithoutPassword, token };
+};
+
+export const updateUser = async (userId: string, data: Partial<Prisma.UserUpdateInput>) => {
+  const user = await prisma.user.update({
+    where: { id: userId },
+    data,
+    include: { farms: true },
+  });
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { password, ...userWithoutPassword } = user;
+  return userWithoutPassword;
 };
