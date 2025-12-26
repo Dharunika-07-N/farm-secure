@@ -59,12 +59,31 @@ export default function Profile() {
 
     // Document state
     const [documents, setDocuments] = useState<File[]>([]);
+    const [galleryPhotos, setGalleryPhotos] = useState<string[]>([]);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const photoInputRef = useRef<HTMLInputElement>(null);
 
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
             setDocuments(prev => [...prev, ...Array.from(e.target.files!)]);
         }
+    };
+
+    const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+            const files = Array.from(e.target.files);
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    setGalleryPhotos(prev => [...prev, reader.result as string]);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+    };
+
+    const removePhoto = (index: number) => {
+        setGalleryPhotos(prev => prev.filter((_, i) => i !== index));
     };
 
     const generatePDF = () => {
@@ -612,19 +631,35 @@ export default function Profile() {
                             </CardHeader>
                             <CardContent>
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                    <div className="aspect-square rounded-md bg-muted flex items-center justify-center border-2 border-dashed border-muted-foreground/25 cursor-pointer hover:bg-muted/80 transition-colors">
+                                    <input
+                                        type="file"
+                                        ref={photoInputRef}
+                                        className="hidden"
+                                        accept="image/*"
+                                        multiple
+                                        onChange={handlePhotoUpload}
+                                    />
+                                    <div
+                                        className="aspect-square rounded-md bg-muted flex items-center justify-center border-2 border-dashed border-muted-foreground/25 cursor-pointer hover:bg-muted/80 transition-colors"
+                                        onClick={() => photoInputRef.current?.click()}
+                                    >
                                         <div className="text-center">
                                             <Camera className="h-8 w-8 mx-auto text-muted-foreground mb-2" />
                                             <span className="text-xs text-muted-foreground">Add Photo</span>
                                         </div>
                                     </div>
-                                    {/* Placeholder for uploaded images */}
-                                    <div className="aspect-square rounded-md bg-muted overflow-hidden">
-                                        <img src="https://images.unsplash.com/photo-1516467508483-a721206088f5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Farm 1" className="h-full w-full object-cover" />
-                                    </div>
-                                    <div className="aspect-square rounded-md bg-muted overflow-hidden">
-                                        <img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Farm 2" className="h-full w-full object-cover" />
-                                    </div>
+
+                                    {galleryPhotos.map((photo, index) => (
+                                        <div key={index} className="aspect-square rounded-md bg-muted overflow-hidden relative group">
+                                            <img src={photo} alt={`Farm ${index + 1}`} className="h-full w-full object-cover" />
+                                            <button
+                                                onClick={() => removePhoto(index)}
+                                                className="absolute top-1 right-1 bg-destructive text-destructive-foreground rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                                            >
+                                                <Plus className="h-3 w-3 rotate-45" />
+                                            </button>
+                                        </div>
+                                    ))}
                                 </div>
                             </CardContent>
                         </Card>
