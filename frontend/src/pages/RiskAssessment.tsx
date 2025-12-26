@@ -4,14 +4,28 @@ import { RiskAssessmentForm } from "@/components/assessment/RiskAssessmentForm";
 import { RiskGauge } from "@/components/dashboard/RiskGauge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Download, RefreshCw } from "lucide-react";
+import api from "@/lib/api";
 
 export default function RiskAssessment() {
   const [assessmentComplete, setAssessmentComplete] = useState(false);
   const [riskScore, setRiskScore] = useState(0);
 
-  const handleComplete = (score: number) => {
-    setRiskScore(score);
-    setAssessmentComplete(true);
+  const handleComplete = async (result: any) => {
+    try {
+      await api.post("/risk-assessment", {
+        score: result.score,
+        level: result.level,
+        recommendations: result.recommendations,
+        answers: result.answers // We need to update the form to provide this
+      });
+      setRiskScore(result.score);
+      setAssessmentComplete(true);
+    } catch (error) {
+      console.error("Failed to save assessment:", error);
+      // Still show result even if save fails
+      setRiskScore(result.score);
+      setAssessmentComplete(true);
+    }
   };
 
   const handleRetake = () => {

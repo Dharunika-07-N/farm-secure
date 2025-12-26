@@ -909,28 +909,6 @@ export default function Profile() {
                                         onCheckedChange={(val) => handleToggle('emailNotifications', val)}
                                     />
                                 </div>
-                                <Separator />
-                                <div className="flex items-center justify-between">
-                                    <div className="space-y-0.5">
-                                        <Label>SMS Alerts</Label>
-                                        <p className="text-sm text-muted-foreground">Instant alerts for disease outbreaks nearby.</p>
-                                    </div>
-                                    <Switch
-                                        checked={settingsForm.smsNotifications}
-                                        onCheckedChange={(val) => handleToggle('smsNotifications', val)}
-                                    />
-                                </div>
-                                <Separator />
-                                <div className="flex items-center justify-between">
-                                    <div className="space-y-0.5">
-                                        <Label>WhatsApp Updates</Label>
-                                        <p className="text-sm text-muted-foreground">Get weekly tips and community news.</p>
-                                    </div>
-                                    <Switch
-                                        checked={settingsForm.whatsappNotifications}
-                                        onCheckedChange={(val) => handleToggle('whatsappNotifications', val)}
-                                    />
-                                </div>
                             </CardContent>
                         </Card>
 

@@ -34,7 +34,6 @@ const navItems = [
   { label: "Risk Assessment", href: "/risk-assessment" },
   { label: "Disease Map", href: "/disease-map" },
   { label: "Analytics", href: "/analytics" },
-  { label: "Training", href: "/training" },
   { label: "Alerts", href: "/alerts" },
   { label: "Compliance", href: "/compliance" },
 ];
@@ -46,7 +45,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-card/80 backdrop-blur-lg">
       <div className="container flex h-16 items-center justify-between">
-        <a href="/" className="flex items-center gap-2">
+        <a href="/dashboard" className="flex items-center gap-2">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary shadow-md">
             <Shield className="h-5 w-5 text-primary-foreground" />
           </div>

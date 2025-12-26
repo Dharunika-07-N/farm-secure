@@ -3,6 +3,8 @@ import { Header } from "@/components/layout/Header";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
     LineChart,
     Line,
@@ -18,25 +20,26 @@ import {
     Pie,
     Cell
 } from "recharts";
-import axios from "axios";
-
-const API_URL = "http://localhost:5000/api/v1";
+import api from "@/lib/api";
 
 export default function Analytics() {
     const [stats, setStats] = useState<any[]>([]);
     const [riskFactors, setRiskFactors] = useState<any[]>([]);
+    const [riskHistory, setRiskHistory] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [selectedDisease, setSelectedDisease] = useState("Avian Influenza");
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [statsRes, riskRes] = await Promise.all([
-                    axios.get(`${API_URL}/analytics/stats`),
-                    axios.get(`${API_URL}/analytics/risk-factors`)
+                const [statsRes, riskRes, historyRes] = await Promise.all([
+                    api.get("/analytics/stats"),
+                    api.get("/analytics/risk-factors"),
+                    api.get("/risk-assessment/history")
                 ]);
                 setStats(statsRes.data);
                 setRiskFactors(riskRes.data);
+                setRiskHistory(historyRes.data.data);
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching analytics data:", error);
@@ -141,6 +144,7 @@ export default function Analytics() {
                         <TabsTrigger value="trends">Trends Analysis</TabsTrigger>
                         <TabsTrigger value="regional">Regional Impact</TabsTrigger>
                         <TabsTrigger value="risk">Risk Factors</TabsTrigger>
+                        <TabsTrigger value="history">Your Progress</TabsTrigger>
                     </TabsList>
 
                     <TabsContent value="trends" className="space-y-4">
@@ -256,6 +260,70 @@ export default function Analytics() {
                                 </div>
                             </CardContent>
                         </Card>
+                    </TabsContent>
+
+                    <TabsContent value="history" className="space-y-4">
+                        <Card className="p-6">
+                            <CardHeader>
+                                <CardTitle>Biosecurity Score Trend</CardTitle>
+                                <CardDescription>Tracking your farm's risk level over time</CardDescription>
+                            </CardHeader>
+                            <CardContent className="h-[400px]">
+                                {riskHistory.length > 0 ? (
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <LineChart data={[...riskHistory].reverse()}>
+                                            <CartesianGrid strokeDasharray="3 3" />
+                                            <XAxis
+                                                dataKey="createdAt"
+                                                tickFormatter={(str) => new Date(str).toLocaleDateString()}
+                                            />
+                                            <YAxis domain={[0, 100]} />
+                                            <Tooltip
+                                                labelFormatter={(label) => new Date(label).toLocaleTimeString()}
+                                            />
+                                            <Legend />
+                                            <Line type="monotone" dataKey="score" stroke="#2d6a4f" strokeWidth={3} name="Biosecurity Score" />
+                                        </LineChart>
+                                    </ResponsiveContainer>
+                                ) : (
+                                    <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
+                                        <p>No assessment history found.</p>
+                                        <Button className="mt-4" asChild>
+                                            <a href="/risk-assessment">Take Your First Assessment</a>
+                                        </Button>
+                                    </div>
+                                )}
+                            </CardContent>
+                        </Card>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {riskHistory.slice(0, 6).map((item) => (
+                                <Card key={item.id}>
+                                    <CardHeader className="pb-2">
+                                        <div className="flex justify-between items-start">
+                                            <CardTitle className="text-sm font-medium">
+                                                {new Date(item.createdAt).toLocaleDateString()}
+                                            </CardTitle>
+                                            <Badge
+                                                variant={item.level === 'high' ? 'destructive' : 'secondary'}
+                                                className={
+                                                    item.level === 'low' ? 'bg-green-100 text-green-800 hover:bg-green-200' :
+                                                        item.level === 'medium' ? 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200' : ''
+                                                }
+                                            >
+                                                {item.level} risk
+                                            </Badge>
+                                        </div>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <div className="text-2xl font-bold">{item.score}%</div>
+                                        <p className="text-xs text-muted-foreground">
+                                            {item.recommendations.length} recommendations
+                                        </p>
+                                    </CardContent>
+                                </Card>
+                            ))}
+                        </div>
                     </TabsContent>
                 </Tabs>
             </main>

@@ -5,6 +5,7 @@ import { StatCard } from "@/components/dashboard/StatCard";
 import { AlertCard } from "@/components/dashboard/AlertCard";
 import { RiskGauge } from "@/components/dashboard/RiskGauge";
 import { ComplianceProgress } from "@/components/dashboard/ComplianceProgress";
+import { WeatherWidget } from "@/components/dashboard/WeatherWidget";
 import { Button } from "@/components/ui/button";
 import {
   Shield,
@@ -53,7 +54,6 @@ export default function Dashboard() {
   const stats = data ? [
     { title: "Biosecurity Score", value: data.stats.biosecurityScore, icon: Shield, variant: "success" as const, trend: { value: 5, isPositive: true } },
     { title: "Active Protocols", value: data.stats.activeProtocols, icon: Activity, variant: "info" as const },
-    { title: "Staff Trained", value: data.stats.staffTrained, icon: Users, variant: "default" as const },
     { title: "Open Alerts", value: data.stats.openAlerts, icon: AlertTriangle, variant: "warning" as const },
   ] : [];
 
@@ -110,7 +110,6 @@ export default function Dashboard() {
               <div className="space-y-6">
                 <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
                   <h3 className="mb-6 text-lg font-semibold text-foreground">Overall Risk Level</h3>
-                  {/* Mocked Score for now, ideally comes from API */}
                   <RiskGauge score={parseInt(data?.stats.biosecurityScore.replace('%', '') || '0') < 50 ? 70 : 35} label="Current Farm Risk" />
                   <div className="mt-6">
                     <Button variant="outline" className="w-full" asChild>
@@ -123,6 +122,7 @@ export default function Dashboard() {
                 </div>
 
                 <ComplianceProgress items={data?.compliance || []} overallProgress={60} />
+                <WeatherWidget data={data?.weather} />
               </div>
 
               {/* Alerts Section */}
@@ -169,15 +169,15 @@ export default function Dashboard() {
                       </a>
                     </Button>
                     <Button variant="outline" className="h-auto flex-col gap-2 py-4" asChild>
-                      <a href="/training">
-                        <Users className="h-5 w-5 text-info" />
-                        <span>Training Modules</span>
-                      </a>
-                    </Button>
-                    <Button variant="outline" className="h-auto flex-col gap-2 py-4" asChild>
                       <a href="/compliance">
                         <FileCheck className="h-5 w-5 text-success" />
                         <span>Compliance Docs</span>
+                      </a>
+                    </Button>
+                    <Button variant="outline" className="h-auto flex-col gap-2 py-4" asChild>
+                      <a href="/staff">
+                        <Users className="h-5 w-5 text-warning" />
+                        <span>Staff Training</span>
                       </a>
                     </Button>
                   </div>

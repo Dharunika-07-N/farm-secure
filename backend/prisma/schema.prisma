@@ -31,6 +31,8 @@ model User {
 
   farms         Farm[]
   notifications Notification[]
+  RiskAssessment RiskAssessment[]
+  Staff         Staff[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
@@ -57,8 +59,47 @@ model Farm {
   inventory          Inventory[]
   alerts             Alert[]
   compliance         Compliance[]
+  Staff              Staff[]
   createdAt          DateTime      @default(now())
   updatedAt          DateTime      @updatedAt
+}
+
+model RiskAssessment {
+  id              String   @id @default(uuid())
+  score           Int
+  level           String   // low, medium, high
+  recommendations String   // JSON string array
+  answers         String   // JSON string of all answers
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt       DateTime @default(now())
+}
+
+model Staff {
+  id            String          @id @default(uuid())
+  firstName     String
+  lastName      String
+  role          String
+  phone         String?
+  email         String?
+  userId        String
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  farmId        String
+  farm          Farm            @relation(fields: [farmId], references: [id], onDelete: Cascade)
+  trainings     StaffTraining[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+}
+
+model StaffTraining {
+  id               String         @id @default(uuid())
+  staffId          String
+  staff            Staff          @relation(fields: [staffId], references: [id], onDelete: Cascade)
+  trainingModuleId String
+  trainingModule   TrainingModule @relation(fields: [trainingModuleId], references: [id], onDelete: Cascade)
+  completedAt      DateTime       @default(now())
+  score            Int?
+  status           String         @default("COMPLETED")
 }
 
 model Crop {
@@ -195,6 +236,7 @@ model TrainingModule {
   objectives  String   // JSON array of learning objectives
   content     String   // JSON object with sections
   isActive    Boolean  @default(true)
+  trainings   StaffTraining[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

@@ -5,10 +5,11 @@ import asyncHandler from '@/utils/asyncHandler';
 export const getDashboardData = asyncHandler(async (req: Request, res: Response) => {
     if (!req.user) throw new Error("User not authenticated");
 
-    const [stats, alerts, compliance] = await Promise.all([
+    const [stats, alerts, compliance, weather] = await Promise.all([
         dashboardService.getDashboardStats(req.user.id),
         dashboardService.getRecentAlerts(req.user.id),
-        dashboardService.getComplianceItems(req.user.id)
+        dashboardService.getComplianceItems(req.user.id),
+        dashboardService.getWeatherData(req.user.id)
     ]);
 
     res.status(200).json({
@@ -16,7 +17,8 @@ export const getDashboardData = asyncHandler(async (req: Request, res: Response)
         data: {
             stats,
             alerts,
-            compliance
+            compliance,
+            weather
         }
     });
 });

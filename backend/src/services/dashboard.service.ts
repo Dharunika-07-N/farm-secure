@@ -7,26 +7,28 @@ export const getDashboardStats = async (userId: string) => {
         include: {
             alerts: true,
             compliance: true,
-            // crops: true,
         }
     });
 
-    // Calculate stats
-    // For demo, we mock some calculations or perform real counts
+    // Calculate aggregated statistics
     const totalFarms = farms.length;
     const activeProtocols = farms.reduce((acc, farm) => acc + farm.compliance.length, 0); // Simplified
     const openAlerts = farms.reduce((acc, farm) => acc + farm.alerts.filter(a => !a.isRead).length, 0);
 
-    // Mock scores for now as we don't have logic for them
-    const biosecurityScore = 78; // Hardcoded or calculated based on compliance
+    // Get latest biosecurity score from risk assessments
+    const latestAssessment = await (prisma as any).RiskAssessment.findFirst({
+        where: { userId },
+        orderBy: { createdAt: 'desc' }
+    });
+
+    const biosecurityScore = latestAssessment ? latestAssessment.score : 0;
 
     return {
         biosecurityScore: `${biosecurityScore}%`,
         activeProtocols,
-        staffTrained: "8/10", // Placeholder as we don't have Staff model yet
         openAlerts,
     };
-};
+}
 
 export const getRecentAlerts = async (userId: string) => {
     return await prisma.alert.findMany({
@@ -45,4 +47,18 @@ export const getComplianceItems = async (userId: string) => {
         where: { farm: { userId } },
         take: 5
     });
+};
+
+export const getWeatherData = async (userId: string) => {
+    // Get the first farm's coordinates
+    const farm = await prisma.farm.findFirst({
+        where: { userId, latitude: { not: null }, longitude: { not: null } }
+    });
+
+    if (!farm || !farm.latitude || !farm.longitude) {
+        return null;
+    }
+
+    const { getCurrentWeather } = await import('./weather.service');
+    return await getCurrentWeather(farm.latitude, farm.longitude);
 };

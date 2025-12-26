@@ -4,7 +4,7 @@ const footerLinks = {
   product: [
     { label: "Dashboard", href: "/dashboard" },
     { label: "Risk Assessment", href: "/risk-assessment" },
-    { label: "Training", href: "/training" },
+    { label: "Staff Management", href: "/staff" },
     { label: "Alerts", href: "/alerts" },
   ],
   resources: [
@@ -27,7 +27,7 @@ export function Footer() {
       <div className="container">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-2">
-            <a href="/" className="mb-4 flex items-center gap-2">
+            <a href="/dashboard" className="mb-4 flex items-center gap-2">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary shadow-md">
                 <Shield className="h-5 w-5 text-primary-foreground" />
               </div>

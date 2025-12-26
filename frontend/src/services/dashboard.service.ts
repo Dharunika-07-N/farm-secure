@@ -9,6 +9,14 @@ export interface DashboardData {
     };
     alerts: Alert[];
     compliance: Compliance[];
+    weather?: {
+        temp: number;
+        humidity: number;
+        windSpeed: number;
+        description: string;
+        icon: string;
+        biosecurityRisk: 'low' | 'medium' | 'high';
+    };
 }
 
 export interface Alert {

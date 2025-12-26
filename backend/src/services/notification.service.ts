@@ -127,10 +127,9 @@ export const notifyUsersOfNewOutbreaks = async () => {
             const nearbyOutbreaks = [];
 
             for (const farm of user.farms) {
-                // Parse farm location (assuming format: "City, Country" or coordinates)
-                // For now, we'll use a default location - in production, farms should have lat/lng
-                const farmLat = 28.7041; // Default: Delhi
-                const farmLng = 77.1025;
+                // Use farm's real coordinates, fallback to default if missing
+                const farmLat = farm.latitude || 28.7041; // Default: Delhi
+                const farmLng = farm.longitude || 77.1025;
 
                 for (const outbreak of recentOutbreaks) {
                     const distance = calculateDistance(
@@ -152,11 +151,11 @@ export const notifyUsersOfNewOutbreaks = async () => {
             }
 
             if (nearbyOutbreaks.length > 0) {
-                const success = await sendOutbreakAlert(user.email, user.firstName, nearbyOutbreaks);
-                if (success) {
-                    sent++;
-                } else {
-                    failed++;
+                // Determine if we should send email
+                if (user.emailNotifications) {
+                    const success = await sendOutbreakAlert(user.email, user.firstName, nearbyOutbreaks);
+                    if (success) sent++;
+                    else failed++;
                 }
             }
         }

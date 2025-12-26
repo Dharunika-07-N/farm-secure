@@ -6,7 +6,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Progress } from "@/components/ui/progress";
 import { AlertCircle, CheckCircle, ChevronRight, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import axios from "axios";
+import api from "@/lib/api";
 
 const API_URL = "http://localhost:5000/api/v1";
 
@@ -21,6 +21,7 @@ interface AssessmentResult {
   score: number;
   level: "low" | "medium" | "high";
   recommendations: string[];
+  answers: Record<string, string>;
 }
 
 interface RiskAssessmentFormProps {
@@ -36,7 +37,7 @@ export function RiskAssessmentForm({ onComplete }: RiskAssessmentFormProps) {
   useEffect(() => {
     const fetchIndicators = async () => {
       try {
-        const response = await axios.get(`${API_URL}/analytics/indicators`);
+        const response = await api.get("/analytics/indicators");
         // Provide a fallback if response.data is not an array (though it should be)
         const data = Array.isArray(response.data) ? response.data : [];
         if (data.length === 0) {
@@ -105,6 +106,7 @@ export function RiskAssessmentForm({ onComplete }: RiskAssessmentFormProps) {
       score: Math.round(score),
       level,
       recommendations: recommendations.slice(0, 5),
+      answers
     });
   };
 

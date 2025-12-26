@@ -8,6 +8,8 @@ import dashboardRoutes from './dashboard.routes';
 import outbreakRoutes from './outbreak.routes';
 import syncRoutes from './sync.routes';
 import notificationRoutes from './notification.routes';
+import riskAssessmentRoutes from './risk-assessment.routes';
+import staffRoutes from './staff.routes';
 import trainingRoutes from '../training.routes';
 import diseaseRoutes from '../disease.routes';
 
@@ -22,6 +24,8 @@ router.use('/dashboard', dashboardRoutes);
 router.use('/outbreaks', outbreakRoutes);
 router.use('/sync', syncRoutes);
 router.use('/notifications', notificationRoutes);
+router.use('/risk-assessment', riskAssessmentRoutes);
+router.use('/staff', staffRoutes);
 // ... existing imports
 import analyticsRoutes from '../analytics.routes';
 
