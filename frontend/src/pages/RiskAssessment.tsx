@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { RiskAssessmentForm } from "@/components/assessment/RiskAssessmentForm";
 import { RiskGauge } from "@/components/dashboard/RiskGauge";
 import { Button } from "@/components/ui/button";
@@ -23,7 +22,7 @@ export default function RiskAssessment() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       <main className="container py-8">
         <div className="mb-8">
           <Button variant="ghost" asChild className="mb-4">
@@ -46,7 +45,7 @@ export default function RiskAssessment() {
           <div className="mx-auto max-w-2xl">
             <div className="rounded-2xl border border-border bg-card p-8 shadow-md text-center">
               <h2 className="mb-6 text-2xl font-bold text-foreground">Assessment Results</h2>
-              
+
               <div className="mb-8 flex justify-center">
                 <RiskGauge score={riskScore} label="Your Farm Risk Score" />
               </div>
@@ -92,8 +91,6 @@ export default function RiskAssessment() {
           </div>
         )}
       </main>
-
-      <Footer />
     </div>
   );
 }

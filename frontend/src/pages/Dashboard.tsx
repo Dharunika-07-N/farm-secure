@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { StatCard } from "@/components/dashboard/StatCard";
 import { AlertCard } from "@/components/dashboard/AlertCard";
 import { RiskGauge } from "@/components/dashboard/RiskGauge";
@@ -188,8 +187,6 @@ export default function Dashboard() {
           </>
         )}
       </main>
-
-      <Footer />
     </div>
   );
 }

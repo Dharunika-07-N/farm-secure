@@ -76,7 +76,21 @@ https://promedmail.org/ajax/runSearch.php?feed=animal&format=rss
 - **Update Frequency:** As events occur
 
 ---
+ 
+### 5. **Internal Data Source (Crowdsourcing)** ⭐ NEW
+**User-Generated Outbreak Validation**
 
+With the new "Data Sharing" privacy setting (`shareData: true`), we can now leverage internal data from trusted farmers.
+
+- **Source:** User Farm Profiles & Self-Reported Alerts
+- **Validation:** Only counts if `isVerified: true` (User) or confirmed by local vet (future feature)
+- **Data Points:**
+    - Sudden spikes in `animalMortality` (derived from daily logs)
+    - Self-reported `Critical` alerts
+- **Use Case:** Early warning system before official WOAH/FAO reports are published.
+
+---
+ 
 ## 🔧 Implementation Options
 
 ### Option 1: Automated WAHIS Sync (Advanced)

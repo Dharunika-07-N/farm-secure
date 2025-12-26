@@ -1,0 +1,242 @@
+[
+    {
+        "state": "Andhra Pradesh",
+        "2020_died": 0,
+        "2021_died": 0,
+        "2021_culled": 0,
+        "2022_died": 0,
+        "2022_culled": 0,
+        "2023_died": 24,
+        "2023_culled": 1
+    },
+    {
+        "state": "Arunachal Pradesh",
+        "2020_died": 213,
+        "2021_died": 0,
+        "2021_culled": 0,
+        "2022_died": 7571,
+        "2022_culled": 1881,
+        "2023_died": 0,
+        "2023_culled": 0
+    },
+    {
+        "state": "Assam",
+        "2020_died": 3488,
+        "2021_died": 0,
+        "2021_culled": 0,
+        "2022_died": 38971,
+        "2022_culled": 1181,
+        "2023_died": 0,
+        "2023_culled": 0
+    },
+    {
+        "state": "Bihar",
+        "2020_died": 0,
+        "2021_died": 0,
+        "2021_culled": 0,
+        "2022_died": 1347,
+        "2022_culled": 170,
+        "2023_died": 0,
+        "2023_culled": 0
+    },
+    {
+        "state": "Goa",
+        "2020_died": 0,
+        "2021_died": 0,
+        "2021_culled": 0,
+        "2022_died": 1,
+        "2022_culled": 0,
+        "2023_died": 0,
+        "2023_culled": 0
+    },
+    {
+        "state": "Haryana",
+        "2020_died": 0,
+        "2021_died": 0,
+        "2021_culled": 0,
+        "2022_died": 1082,
+        "2022_culled": 623,
+        "2023_died": 0,
+        "2023_culled": 0
+    },
+    {
+        "state": "Himachal Pradesh",
+        "2020_died": 0,
+        "2021_died": 0,
+        "2021_culled": 0,
+        "2022_died": 0,
+        "2022_culled": 0,
+        "2023_died": 71,
+        "2023_culled": 0
+    },
+    {
+        "state": "Jharkhand",
+        "2020_died": 0,
+        "2021_died": 0,
+        "2021_culled": 0,
+        "2022_died": 1,
+        "2022_culled": 0,
+        "2023_died": 0,
+        "2023_culled": 0
+    },
+    {
+        "state": "Karnataka",
+        "2020_died": 0,
+        "2021_died": 0,
+        "2021_culled": 0,
+        "2022_died": 1295,
+        "2022_culled": 1641,
+        "2023_died": 914,
+        "2023_culled": 390
+    },
+    {
+        "state": "Kerala",
+        "2020_died": 0,
+        "2021_died": 0,
+        "2021_culled": 0,
+        "2022_died": 128,
+        "2022_culled": 1028,
+        "2023_died": 0,
+        "2023_culled": 0
+    },
+    {
+        "state": "Madhya Pradesh",
+        "2020_died": 0,
+        "2021_died": 0,
+        "2021_culled": 0,
+        "2022_died": 4599,
+        "2022_culled": 996,
+        "2023_died": 195,
+        "2023_culled": 216
+    },
+    {
+        "state": "Maharashtra",
+        "2020_died": 0,
+        "2021_died": 0,
+        "2021_culled": 0,
+        "2022_died": 160,
+        "2022_culled": 0,
+        "2023_died": 15,
+        "2023_culled": 17
+    },
+    {
+        "state": "Manipur",
+        "2020_died": 67,
+        "2021_died": 0,
+        "2021_culled": 0,
+        "2022_died": 103,
+        "2022_culled": 55,
+        "2023_died": 4319,
+        "2023_culled": 1681
+    },
+    {
+        "state": "Meghalaya",
+        "2020_died": 66,
+        "2021_died": 0,
+        "2021_culled": 0,
+        "2022_died": 587,
+        "2022_culled": 0,
+        "2023_died": 0,
+        "2023_culled": 0
+    },
+    {
+        "state": "Mizoram",
+        "2020_died": 0,
+        "2021_died": 1302,
+        "2021_culled": 4,
+        "2022_died": 12044,
+        "2022_culled": 10756,
+        "2023_died": 74,
+        "2023_culled": 13
+    },
+    {
+        "state": "Nagaland",
+        "2020_died": 0,
+        "2021_died": 933,
+        "2021_culled": 25,
+        "2022_died": 6660,
+        "2022_culled": 192,
+        "2023_died": 0,
+        "2023_culled": 0
+    },
+    {
+        "state": "Punjab",
+        "2020_died": 0,
+        "2021_died": 0,
+        "2021_culled": 0,
+        "2022_died": 506,
+        "2022_culled": 1033,
+        "2023_died": 25,
+        "2023_culled": 166
+    },
+    {
+        "state": "Rajasthan",
+        "2020_died": 0,
+        "2021_died": 0,
+        "2021_culled": 0,
+        "2022_died": 1,
+        "2022_culled": 0,
+        "2023_died": 12,
+        "2023_culled": 0
+    },
+    {
+        "state": "Sikkim",
+        "2020_died": 0,
+        "2021_died": 0,
+        "2021_culled": 0,
+        "2022_died": 332,
+        "2022_culled": 0,
+        "2023_died": 0,
+        "2023_culled": 0
+    },
+    {
+        "state": "Tamil Nadu",
+        "2020_died": 0,
+        "2021_died": 0,
+        "2021_culled": 0,
+        "2022_died": 0,
+        "2022_culled": 0,
+        "2023_died": 21,
+        "2023_culled": 0
+    },
+    {
+        "state": "Tripura",
+        "2020_died": 0,
+        "2021_died": 0,
+        "2021_culled": 0,
+        "2022_died": 130,
+        "2022_culled": 238,
+        "2023_died": 0,
+        "2023_culled": 0
+    },
+    {
+        "state": "Uttar Pradesh",
+        "2020_died": 0,
+        "2021_died": 0,
+        "2021_culled": 0,
+        "2022_died": 156,
+        "2022_culled": 0,
+        "2023_died": 11,
+        "2023_culled": 0
+    },
+    {
+        "state": "Uttarakhand",
+        "2020_died": 0,
+        "2021_died": 0,
+        "2021_culled": 0,
+        "2022_died": 985,
+        "2022_culled": 53,
+        "2023_died": 0,
+        "2023_culled": 0
+    },
+    {
+        "state": "Delhi",
+        "2020_died": 0,
+        "2021_died": 0,
+        "2021_culled": 0,
+        "2022_died": 60,
+        "2022_culled": 33,
+        "2023_died": 0,
+        "2023_culled": 0
+    }
+]

@@ -1,0 +1,394 @@
+[
+    {
+        "name": "African Swine Fever (ASF)",
+        "type": "Viral",
+        "affectedSpecies": [
+            "Pig"
+        ],
+        "symptoms": [
+            "High fever (40.5-42°C)",
+            "Loss of appetite",
+            "Lethargy and weakness",
+            "Red or purple skin discoloration",
+            "Vomiting and diarrhea (sometimes bloody)",
+            "Difficulty breathing",
+            "Sudden death in acute cases",
+            "Abortion in pregnant sows"
+        ],
+        "preventionMeasures": [
+            "Strict biosecurity protocols at farm entry points",
+            "Avoid feeding swill or food waste to pigs",
+            "Control wild boar and tick populations",
+            "Quarantine new animals for 30 days",
+            "Disinfect vehicles and equipment",
+            "Restrict visitor access",
+            "Use dedicated farm clothing and footwear",
+            "Proper disposal of dead animals"
+        ],
+        "treatment": "No vaccine or treatment available. Infected animals must be culled. Focus on prevention and rapid outbreak response.",
+        "riskLevel": "High",
+        "transmissionRoutes": [
+            "Direct contact with infected pigs",
+            "Contaminated feed and water",
+            "Infected ticks (Ornithodoros species)",
+            "Contaminated equipment and vehicles",
+            "Wild boar contact"
+        ],
+        "incubationPeriod": "4-19 days",
+        "mortality": "Up to 100% in acute cases"
+    },
+    {
+        "name": "Foot and Mouth Disease (FMD)",
+        "type": "Viral",
+        "affectedSpecies": [
+            "Cattle",
+            "Pig",
+            "Sheep",
+            "Goat"
+        ],
+        "symptoms": [
+            "Fever and reduced appetite",
+            "Blisters on mouth, tongue, and lips",
+            "Blisters on feet and teats",
+            "Excessive salivation and drooling",
+            "Lameness",
+            "Reduced milk production",
+            "Weight loss",
+            "Reluctance to move or eat"
+        ],
+        "preventionMeasures": [
+            "Vaccination in endemic areas",
+            "Movement restrictions during outbreaks",
+            "Quarantine of new animals",
+            "Disinfection of vehicles and equipment",
+            "Control of animal movements",
+            "Biosecurity at farm boundaries",
+            "Avoid contact with wild animals",
+            "Regular veterinary inspections"
+        ],
+        "treatment": "No specific treatment. Supportive care for mild cases. Vaccination available in some regions. Culling may be required during outbreaks.",
+        "riskLevel": "High",
+        "transmissionRoutes": [
+            "Direct contact with infected animals",
+            "Airborne transmission (up to 60km over water)",
+            "Contaminated feed and water",
+            "Contaminated equipment and clothing",
+            "Infected animal products"
+        ],
+        "incubationPeriod": "2-14 days",
+        "mortality": "Low in adults (5%), higher in young animals (50%)"
+    },
+    {
+        "name": "Avian Influenza (Bird Flu)",
+        "type": "Viral",
+        "affectedSpecies": [
+            "Poultry",
+            "Wild Birds"
+        ],
+        "symptoms": [
+            "Sudden death without clinical signs",
+            "Severe depression and lethargy",
+            "Reduced egg production",
+            "Soft-shelled or misshapen eggs",
+            "Swelling of head, comb, and wattles",
+            "Purple discoloration of comb and wattles",
+            "Nasal discharge",
+            "Coughing and sneezing",
+            "Diarrhea",
+            "Neurological signs (twisted neck, lack of coordination)"
+        ],
+        "preventionMeasures": [
+            "Prevent contact with wild birds",
+            "Use bird-proof netting on poultry houses",
+            "Maintain strict biosecurity",
+            "Disinfect equipment and footwear",
+            "Quarantine new birds for 21 days",
+            "Control rodents and pests",
+            "Vaccination in high-risk areas",
+            "Monitor for sick or dead wild birds",
+            "Separate species (ducks from chickens)"
+        ],
+        "treatment": "No effective treatment. Infected flocks must be culled. Vaccination available for some strains in endemic areas.",
+        "riskLevel": "High",
+        "transmissionRoutes": [
+            "Direct contact with infected birds",
+            "Contaminated water sources",
+            "Wild bird droppings",
+            "Contaminated equipment and clothing",
+            "Airborne transmission over short distances"
+        ],
+        "incubationPeriod": "3-7 days",
+        "mortality": "Up to 100% for highly pathogenic strains"
+    },
+    {
+        "name": "Newcastle Disease",
+        "type": "Viral",
+        "affectedSpecies": [
+            "Poultry"
+        ],
+        "symptoms": [
+            "Respiratory distress (gasping, coughing)",
+            "Greenish watery diarrhea",
+            "Neurological signs (twisted neck, paralysis, tremors)",
+            "Swelling around eyes and neck",
+            "Reduced egg production",
+            "Thin-shelled or misshapen eggs",
+            "Depression and lethargy",
+            "Sudden death"
+        ],
+        "preventionMeasures": [
+            "Vaccination (mandatory in many regions)",
+            "Biosecurity measures",
+            "Quarantine new birds",
+            "Prevent wild bird contact",
+            "Disinfect equipment and vehicles",
+            "Control visitor access",
+            "Proper disposal of dead birds",
+            "Regular health monitoring"
+        ],
+        "treatment": "No specific treatment. Vaccination is the primary prevention method. Supportive care may help in mild cases.",
+        "riskLevel": "High",
+        "transmissionRoutes": [
+            "Direct contact with infected birds",
+            "Airborne transmission",
+            "Contaminated feed and water",
+            "Contaminated equipment and clothing",
+            "Wild bird contact"
+        ],
+        "incubationPeriod": "2-15 days (average 5-6 days)",
+        "mortality": "10-100% depending on strain virulence"
+    },
+    {
+        "name": "Classical Swine Fever (CSF)",
+        "type": "Viral",
+        "affectedSpecies": [
+            "Pig"
+        ],
+        "symptoms": [
+            "High fever (40-41°C)",
+            "Loss of appetite",
+            "Lethargy and huddling",
+            "Conjunctivitis (red eyes)",
+            "Constipation followed by diarrhea",
+            "Purple skin discoloration (ears, snout, legs)",
+            "Neurological signs (tremors, convulsions)",
+            "Abortion in pregnant sows",
+            "High mortality in young pigs"
+        ],
+        "preventionMeasures": [
+            "Vaccination (where permitted)",
+            "Strict biosecurity protocols",
+            "Quarantine new animals",
+            "Avoid feeding swill",
+            "Control wild boar populations",
+            "Disinfect vehicles and equipment",
+            "Restrict farm access",
+            "Regular veterinary inspections"
+        ],
+        "treatment": "No treatment available. Vaccination is used in some countries. Infected herds are typically culled.",
+        "riskLevel": "High",
+        "transmissionRoutes": [
+            "Direct contact with infected pigs",
+            "Contaminated feed (especially swill)",
+            "Contaminated equipment and vehicles",
+            "Wild boar contact",
+            "Infected semen"
+        ],
+        "incubationPeriod": "2-14 days",
+        "mortality": "Up to 100% in young pigs, 30-90% in adults"
+    },
+    {
+        "name": "Porcine Reproductive and Respiratory Syndrome (PRRS)",
+        "type": "Viral",
+        "affectedSpecies": [
+            "Pig"
+        ],
+        "symptoms": [
+            "Reproductive failure in sows (abortions, stillbirths)",
+            "Weak-born piglets",
+            "Respiratory distress in young pigs",
+            "Reduced growth rates",
+            "Fever and lethargy",
+            "Blue discoloration of ears and snout",
+            "Increased mortality in nursery pigs",
+            "Secondary bacterial infections"
+        ],
+        "preventionMeasures": [
+            "Vaccination programs",
+            "Biosecurity measures",
+            "All-in/all-out production systems",
+            "Quarantine new breeding stock",
+            "Control of pig movements",
+            "Disinfection protocols",
+            "Air filtration in high-risk areas",
+            "Regular health monitoring"
+        ],
+        "treatment": "No specific antiviral treatment. Vaccination and biosecurity are key. Antibiotics for secondary infections. Focus on herd immunity.",
+        "riskLevel": "Medium",
+        "transmissionRoutes": [
+            "Direct contact with infected pigs",
+            "Airborne transmission (up to 3km)",
+            "Contaminated semen",
+            "Contaminated equipment and vehicles",
+            "Infected breeding stock"
+        ],
+        "incubationPeriod": "4-7 days",
+        "mortality": "Variable (1-4% in adults, up to 60% in piglets)"
+    },
+    {
+        "name": "Infectious Bronchitis",
+        "type": "Viral",
+        "affectedSpecies": [
+            "Poultry"
+        ],
+        "symptoms": [
+            "Respiratory signs (coughing, sneezing, gasping)",
+            "Nasal discharge",
+            "Reduced egg production",
+            "Poor egg quality (thin shells, watery whites)",
+            "Reduced feed consumption",
+            "Wet droppings",
+            "Huddling and depression",
+            "Kidney damage in some strains"
+        ],
+        "preventionMeasures": [
+            "Vaccination programs",
+            "Biosecurity measures",
+            "All-in/all-out flock management",
+            "Proper ventilation",
+            "Avoid mixing age groups",
+            "Disinfection between flocks",
+            "Control of equipment sharing",
+            "Quarantine new birds"
+        ],
+        "treatment": "No specific treatment. Vaccination is primary prevention. Supportive care (warmth, hydration). Antibiotics for secondary bacterial infections.",
+        "riskLevel": "Medium",
+        "transmissionRoutes": [
+            "Airborne transmission",
+            "Direct contact with infected birds",
+            "Contaminated equipment and clothing",
+            "Contaminated water",
+            "Egg transmission (rare)"
+        ],
+        "incubationPeriod": "18-36 hours",
+        "mortality": "Low in adults, up to 25% in young chicks"
+    },
+    {
+        "name": "Marek's Disease",
+        "type": "Viral",
+        "affectedSpecies": [
+            "Poultry"
+        ],
+        "symptoms": [
+            "Paralysis of legs, wings, or neck",
+            "Weight loss",
+            "Grey iris or irregular pupil",
+            "Vision impairment",
+            "Tumors in internal organs",
+            "Skin lesions around feather follicles",
+            "Immunosuppression",
+            "Sudden death"
+        ],
+        "preventionMeasures": [
+            "Vaccination at day-old (in hatchery)",
+            "Strict biosecurity",
+            "Avoid stress factors",
+            "Good ventilation and hygiene",
+            "Genetic selection for resistance",
+            "All-in/all-out management",
+            "Proper cleaning between flocks",
+            "Minimize dust exposure"
+        ],
+        "treatment": "No treatment available. Vaccination at hatch is highly effective. Infected birds should be culled.",
+        "riskLevel": "Medium",
+        "transmissionRoutes": [
+            "Airborne transmission (dust and dander)",
+            "Direct contact with infected birds",
+            "Contaminated environment (virus persists in dust)",
+            "Vertical transmission (rare)"
+        ],
+        "incubationPeriod": "2 weeks to several months",
+        "mortality": "Variable (0-50% depending on strain and vaccination)"
+    },
+    {
+        "name": "Bovine Tuberculosis",
+        "type": "Bacterial",
+        "affectedSpecies": [
+            "Cattle",
+            "Pig",
+            "Goat"
+        ],
+        "symptoms": [
+            "Chronic cough",
+            "Weight loss despite good appetite",
+            "Weakness and lethargy",
+            "Enlarged lymph nodes",
+            "Difficulty breathing",
+            "Reduced milk production",
+            "Low-grade fever",
+            "Often no visible symptoms until advanced"
+        ],
+        "preventionMeasures": [
+            "Regular tuberculin testing",
+            "Quarantine and test new animals",
+            "Cull infected animals",
+            "Pasteurize milk",
+            "Control wildlife reservoirs (badgers, deer)",
+            "Improve ventilation in housing",
+            "Biosecurity measures",
+            "Movement restrictions in endemic areas"
+        ],
+        "treatment": "Treatment not recommended due to public health risk and long treatment duration. Infected animals are typically culled.",
+        "riskLevel": "Medium",
+        "transmissionRoutes": [
+            "Airborne transmission (respiratory droplets)",
+            "Contaminated milk",
+            "Direct contact with infected animals",
+            "Contaminated environment",
+            "Wildlife reservoirs"
+        ],
+        "incubationPeriod": "Weeks to years",
+        "mortality": "Low but chronic disease leads to culling"
+    },
+    {
+        "name": "Brucellosis",
+        "type": "Bacterial",
+        "affectedSpecies": [
+            "Cattle",
+            "Pig",
+            "Sheep",
+            "Goat"
+        ],
+        "symptoms": [
+            "Abortion in late pregnancy",
+            "Retained placenta",
+            "Reduced milk production",
+            "Infertility",
+            "Orchitis (testicular inflammation) in males",
+            "Lameness and joint swelling",
+            "Often no visible symptoms",
+            "Weak calves/piglets"
+        ],
+        "preventionMeasures": [
+            "Vaccination (where available and permitted)",
+            "Test and cull infected animals",
+            "Quarantine new animals and test",
+            "Proper disposal of aborted fetuses and placentas",
+            "Disinfection of contaminated areas",
+            "Use artificial insemination from tested bulls",
+            "Pasteurize milk",
+            "Personal protective equipment for handlers"
+        ],
+        "treatment": "Treatment not recommended in livestock due to zoonotic risk and difficulty in eliminating infection. Infected animals are culled.",
+        "riskLevel": "Medium",
+        "transmissionRoutes": [
+            "Contact with aborted fetuses and placentas",
+            "Contaminated milk",
+            "Breeding (infected semen)",
+            "Direct contact with infected animals",
+            "Contaminated environment"
+        ],
+        "incubationPeriod": "2 weeks to several months",
+        "mortality": "Low but causes significant reproductive losses"
+    }
+]

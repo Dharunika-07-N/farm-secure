@@ -30,6 +30,7 @@ model User {
   shareData             Boolean   @default(true)
 
   farms         Farm[]
+  notifications Notification[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
@@ -134,6 +135,21 @@ model Outbreak {
   createdAt       DateTime @default(now())
 }
 
+model Notification {
+  id          String           @id @default(uuid())
+  title       String
+  message     String
+  type        NotificationType @default(INFO)
+  severity    String?          // high, medium, low (for outbreak notifications)
+  isRead      Boolean          @default(false)
+  actionUrl   String?          // URL to navigate when clicked
+  metadata    String?          // JSON string for additional data
+  userId      String
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
+
 enum Role {
   ADMIN
   FARMER
@@ -158,4 +174,77 @@ enum InventoryCategory {
   PESTICIDE
   EQUIPMENT
   OTHER
+}
+
+enum NotificationType {
+  INFO
+  WARNING
+  ALERT
+  OUTBREAK
+  SYSTEM
+  SUCCESS
+}
+
+model TrainingModule {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  duration    Int      // in minutes
+  level       String   // Beginner, Intermediate, Advanced
+  category    String   // Biosecurity, Health Management, etc.
+  objectives  String   // JSON array of learning objectives
+  content     String   // JSON object with sections
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Disease {
+  id                  String   @id @default(uuid())
+  name                String   @unique
+  type                String   // Viral, Bacterial, Parasitic, Fungal
+  affectedSpecies     String   // JSON array of species
+  symptoms            String   // JSON array of symptoms
+  preventionMeasures  String   // JSON array of prevention measures
+  treatment           String   // Text description of treatment
+  riskLevel           String   // High, Medium, Low
+  transmissionRoutes  String   // JSON array of transmission routes
+  incubationPeriod    String?
+  mortality           String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model DiseaseStatistic {
+  id                String   @id @default(uuid())
+  state             String
+  year              Int
+  diseaseType       String   // "Avian Influenza" or "African Swine Fever"
+  deaths            Int
+  outbreaks         Int
+  culled            Int?     // Specific to AI
+  affectedDistricts Int?     // Specific to ASF
+  metadata          String?  // JSON for extras like "Virus_Strain"
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model RiskFactor {
+  id                String   @id @default(uuid())
+  factor            String
+  asfRiskMultiplier Float
+  aiRiskMultiplier  Float
+  evidence          Boolean  @default(true)
+  createdAt         DateTime @default(now())
+}
+
+model BiosecurityIndicator {
+  id                     String   @id @default(uuid())
+  indicatorId            Int      @unique
+  variableName           String
+  importanceWeight       Float
+  evidenceSource         String
+  applicableTo           String   // Both, Pig, Poultry
+  poorPracticePrevalence Float
+  createdAt              DateTime @default(now())
 }

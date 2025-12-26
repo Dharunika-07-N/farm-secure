@@ -1,178 +1,174 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Progress } from "@/components/ui/progress";
-import { ChevronLeft, ChevronRight, CheckCircle } from "lucide-react";
-import { toast } from "@/hooks/use-toast";
+import { AlertCircle, CheckCircle, ChevronRight, Loader2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import axios from "axios";
 
-const questions = [
-  {
-    id: "farm-type",
-    question: "What type of livestock do you primarily raise?",
-    options: [
-      { value: "poultry", label: "Poultry (Chickens, Turkeys, Ducks)" },
-      { value: "pigs", label: "Pigs / Swine" },
-      { value: "mixed", label: "Mixed (Both Poultry and Pigs)" },
-    ],
-  },
-  {
-    id: "farm-size",
-    question: "What is the approximate size of your operation?",
-    options: [
-      { value: "small", label: "Small (< 500 animals)" },
-      { value: "medium", label: "Medium (500 - 5,000 animals)" },
-      { value: "large", label: "Large (> 5,000 animals)" },
-    ],
-  },
-  {
-    id: "visitor-policy",
-    question: "Do you have a visitor registration and biosecurity protocol?",
-    options: [
-      { value: "yes", label: "Yes, strictly enforced" },
-      { value: "partial", label: "Partially implemented" },
-      { value: "no", label: "No formal protocol" },
-    ],
-  },
-  {
-    id: "cleaning-protocol",
-    question: "How often do you clean and disinfect housing facilities?",
-    options: [
-      { value: "daily", label: "Daily" },
-      { value: "weekly", label: "Weekly" },
-      { value: "monthly", label: "Monthly or less" },
-    ],
-  },
-  {
-    id: "quarantine",
-    question: "Do you have a quarantine area for new or sick animals?",
-    options: [
-      { value: "yes", label: "Yes, dedicated quarantine facility" },
-      { value: "temporary", label: "Temporary/improvised space" },
-      { value: "no", label: "No quarantine area" },
-    ],
-  },
-  {
-    id: "feed-source",
-    question: "How do you source your animal feed?",
-    options: [
-      { value: "certified", label: "Certified suppliers with quality assurance" },
-      { value: "local", label: "Local suppliers" },
-      { value: "self", label: "Self-produced on farm" },
-    ],
-  },
-];
+const API_URL = "http://localhost:5000/api/v1";
+
+interface Question {
+  id: string;
+  text: string;
+  weight: number;
+  category: string;
+}
+
+interface AssessmentResult {
+  score: number;
+  level: "low" | "medium" | "high";
+  recommendations: string[];
+}
 
 interface RiskAssessmentFormProps {
-  onComplete: (score: number, answers: Record<string, string>) => void;
+  onComplete: (result: AssessmentResult) => void;
 }
 
 export function RiskAssessmentForm({ onComplete }: RiskAssessmentFormProps) {
+  const [questions, setQuestions] = useState<Question[]>([]);
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [loading, setLoading] = useState(true);
 
-  const progress = ((currentStep + 1) / questions.length) * 100;
-  const currentQuestion = questions[currentStep];
-  const isLastStep = currentStep === questions.length - 1;
-  const canProceed = answers[currentQuestion.id];
+  useEffect(() => {
+    const fetchIndicators = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/analytics/indicators`);
+        // Provide a fallback if response.data is not an array (though it should be)
+        const data = Array.isArray(response.data) ? response.data : [];
+        if (data.length === 0) {
+          console.warn("No indicators received from API");
+        }
+
+        const fetchedQuestions = data.map((ind: any) => ({
+          id: ind.variableName,
+          text: formatQuestionText(ind.variableName),
+          weight: ind.importanceWeight,
+          category: ind.applicableTo,
+        }));
+        setQuestions(fetchedQuestions);
+      } catch (error) {
+        console.error("Error fetching indicators:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchIndicators();
+  }, []);
+
+  const formatQuestionText = (variableName: string) => {
+    if (!variableName) return "";
+    const words = variableName.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1));
+    return `Do you implement strictly controlled ${words.join(' ')}?`;
+  };
+
+  const handleAnswer = (value: string) => {
+    if (!questions[currentStep]) return;
+    setAnswers((prev) => ({
+      ...prev,
+      [questions[currentStep].id]: value,
+    }));
+  };
 
   const handleNext = () => {
-    if (isLastStep) {
-      // Calculate risk score (simple scoring for demo)
-      const riskScore = calculateRiskScore(answers);
-      onComplete(riskScore, answers);
-      toast({
-        title: "Assessment Complete!",
-        description: `Your farm risk score is ${riskScore}%`,
-      });
-    } else {
+    if (currentStep < questions.length - 1) {
       setCurrentStep((prev) => prev + 1);
+    } else {
+      calculateResult();
     }
   };
 
-  const handleBack = () => {
-    setCurrentStep((prev) => Math.max(0, prev - 1));
+  const calculateResult = () => {
+    let totalWeight = 0;
+    let earnedWeight = 0;
+    const recommendations: string[] = [];
+
+    questions.forEach((q) => {
+      totalWeight += q.weight;
+      if (answers[q.id] === "yes") {
+        earnedWeight += q.weight;
+      } else {
+        recommendations.push(`Improve ${q.text.replace("Do you implement strictly controlled ", "").replace("?", "")} practices.`);
+      }
+    });
+
+    const score = totalWeight > 0 ? (earnedWeight / totalWeight) * 100 : 0;
+
+    let level: "low" | "medium" | "high" = "high";
+    if (score > 80) level = "low";
+    else if (score > 50) level = "medium";
+
+    onComplete({
+      score: Math.round(score),
+      level,
+      recommendations: recommendations.slice(0, 5),
+    });
   };
 
-  const calculateRiskScore = (answers: Record<string, string>): number => {
-    let score = 50; // Base score
-    
-    // Adjust based on answers (simplified scoring)
-    if (answers["visitor-policy"] === "yes") score -= 10;
-    if (answers["visitor-policy"] === "no") score += 15;
-    if (answers["cleaning-protocol"] === "daily") score -= 10;
-    if (answers["cleaning-protocol"] === "monthly") score += 15;
-    if (answers["quarantine"] === "yes") score -= 10;
-    if (answers["quarantine"] === "no") score += 15;
-    if (answers["feed-source"] === "certified") score -= 5;
-    
-    return Math.max(10, Math.min(90, score));
-  };
+  if (loading) {
+    return <div className="flex justify-center p-8"><Loader2 className="h-8 w-8 animate-spin" /></div>;
+  }
+
+  if (questions.length === 0) {
+    return <div className="text-center p-8">No specific indicators found. Please ensure the database is populated.</div>;
+  }
+
+  const currentQuestion = questions[currentStep];
+  const progress = ((currentStep + 1) / questions.length) * 100;
 
   return (
-    <div className="mx-auto max-w-2xl">
-      <div className="mb-8">
-        <div className="mb-2 flex items-center justify-between text-sm">
-          <span className="font-medium text-muted-foreground">
-            Question {currentStep + 1} of {questions.length}
-          </span>
-          <span className="font-semibold text-primary">{Math.round(progress)}%</span>
+    <Card className="w-full max-w-2xl mx-auto p-6">
+      <div className="mb-6">
+        <div className="flex justify-between text-sm text-muted-foreground mb-2">
+          <span>Question {currentStep + 1} of {questions.length}</span>
+          <span>{Math.round(progress)}% Completed</span>
         </div>
         <Progress value={progress} className="h-2" />
       </div>
 
-      <div className="rounded-2xl border border-border bg-card p-6 shadow-md md:p-8">
-        <h2 className="mb-6 text-xl font-bold text-foreground md:text-2xl">
-          {currentQuestion.question}
-        </h2>
-
-        <RadioGroup
-          value={answers[currentQuestion.id] || ""}
-          onValueChange={(value) =>
-            setAnswers((prev) => ({ ...prev, [currentQuestion.id]: value }))
-          }
-          className="space-y-3"
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentStep}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.3 }}
         >
-          {currentQuestion.options.map((option) => (
-            <Label
-              key={option.value}
-              htmlFor={option.value}
-              className="flex cursor-pointer items-center gap-3 rounded-xl border border-border bg-background p-4 transition-all hover:border-primary/50 hover:bg-accent/50 has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-accent"
-            >
-              <RadioGroupItem value={option.value} id={option.value} />
-              <span className="text-foreground">{option.label}</span>
-            </Label>
-          ))}
-        </RadioGroup>
+          <h3 className="text-xl font-semibold mb-6">{currentQuestion?.text}</h3>
 
-        <div className="mt-8 flex items-center justify-between">
-          <Button
-            variant="ghost"
-            onClick={handleBack}
-            disabled={currentStep === 0}
+          <RadioGroup
+            value={answers[currentQuestion?.id] || ""}
+            onValueChange={handleAnswer}
+            className="space-y-4"
           >
-            <ChevronLeft className="h-4 w-4" />
-            Back
-          </Button>
+            <div className={`flex items-center space-x-3 border p-4 rounded-lg cursor-pointer transition-colors ${answers[currentQuestion?.id] === "yes" ? "bg-primary/5 border-primary" : "hover:bg-muted/50"}`}>
+              <RadioGroupItem value="yes" id="yes" />
+              <Label htmlFor="yes" className="flex-1 cursor-pointer font-medium">Yes, fully implemented</Label>
+              <CheckCircle className={`h-5 w-5 ${answers[currentQuestion?.id] === "yes" ? "text-primary" : "text-muted-foreground/30"}`} />
+            </div>
 
-          <Button
-            onClick={handleNext}
-            disabled={!canProceed}
-          >
-            {isLastStep ? (
-              <>
-                Complete
-                <CheckCircle className="h-4 w-4" />
-              </>
-            ) : (
-              <>
-                Next
-                <ChevronRight className="h-4 w-4" />
-              </>
-            )}
-          </Button>
-        </div>
+            <div className={`flex items-center space-x-3 border p-4 rounded-lg cursor-pointer transition-colors ${answers[currentQuestion?.id] === "no" ? "bg-destructive/5 border-destructive" : "hover:bg-muted/50"}`}>
+              <RadioGroupItem value="no" id="no" />
+              <Label htmlFor="no" className="flex-1 cursor-pointer font-medium">No, or partially implemented</Label>
+              <AlertCircle className={`h-5 w-5 ${answers[currentQuestion?.id] === "no" ? "text-destructive" : "text-muted-foreground/30"}`} />
+            </div>
+          </RadioGroup>
+        </motion.div>
+      </AnimatePresence>
+
+      <div className="flex justify-end mt-8">
+        <Button
+          onClick={handleNext}
+          disabled={!answers[currentQuestion?.id]}
+          className="w-full sm:w-auto"
+        >
+          {currentStep === questions.length - 1 ? "Complete Assessment" : "Next Question"}
+          <ChevronRight className="ml-2 h-4 w-4" />
+        </Button>
       </div>
-    </div>
+    </Card>
   );
 }

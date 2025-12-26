@@ -20,15 +20,10 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-interface OutbreakLocation {
-  id: string;
-  name: string;
-  type: "avian_influenza" | "african_swine_fever" | "newcastle_disease" | "foot_mouth";
-  coordinates: [number, number]; // [lat, lng] for Leaflet
-  severity: "high" | "medium" | "low";
-  date: string;
-  affectedAnimals: number;
-  riskRadius: number; // in km
+import { Outbreak } from "@/services/outbreak.service";
+
+interface OutbreakLocation extends Omit<Outbreak, 'latitude' | 'longitude'> {
+  coordinates: [number, number];
 }
 
 const farmLocation: [number, number] = [28.7041, 77.1025]; // [Lat, Lng]
@@ -185,10 +180,18 @@ export function OutbreakMap() {
               <Popup>
                 <div className="min-w-[200px] p-1">
                   <h4 className="font-bold text-sm mb-1">{outbreak.name}</h4>
-                  <span className="text-xs uppercase font-semibold" style={{ color: diseaseColors[outbreak.type] }}>
-                    {outbreak.severity} Severity
-                  </span>
-                  <p className="text-xs mt-1 text-gray-600">{diseaseLabels[outbreak.type]}</p>
+                  <div className="flex items-center justify-between mt-2">
+                    <span className="text-xs uppercase font-semibold" style={{ color: diseaseColors[outbreak.type] }}>
+                      {outbreak.severity} Severity
+                    </span>
+                    <span className="text-xs text-muted-foreground">{outbreak.riskRadius}km Risk Zone</span>
+                  </div>
+                  <p className="text-xs mt-2 font-medium">
+                    Confirmed Cases: {outbreak.affectedAnimals.toLocaleString()}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground mt-1">
+                    Reported: {new Date(outbreak.date).toLocaleDateString()}
+                  </p>
                 </div>
               </Popup>
             </Marker>

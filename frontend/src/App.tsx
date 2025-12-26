@@ -15,6 +15,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import HelpSupport from "./pages/HelpSupport";
+import Analytics from "./pages/Analytics";
+import TrainingModule from "./pages/TrainingModule";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +38,8 @@ const App = () => (
           <Route path="/disease-map" element={<DiseaseMap />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/help-support" element={<HelpSupport />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path="/training/:moduleId" element={<TrainingModule />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

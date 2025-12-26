@@ -7,6 +7,9 @@ import inventoryRoutes from './inventory.routes';
 import dashboardRoutes from './dashboard.routes';
 import outbreakRoutes from './outbreak.routes';
 import syncRoutes from './sync.routes';
+import notificationRoutes from './notification.routes';
+import trainingRoutes from '../training.routes';
+import diseaseRoutes from '../disease.routes';
 
 const router = Router();
 
@@ -18,6 +21,13 @@ router.use('/inventory', inventoryRoutes);
 router.use('/dashboard', dashboardRoutes);
 router.use('/outbreaks', outbreakRoutes);
 router.use('/sync', syncRoutes);
+router.use('/notifications', notificationRoutes);
+// ... existing imports
+import analyticsRoutes from '../analytics.routes';
+
+router.use('/training', trainingRoutes);
+router.use('/diseases', diseaseRoutes);
+router.use('/analytics', analyticsRoutes);
 
 
 

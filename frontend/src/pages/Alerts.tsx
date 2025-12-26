@@ -1,5 +1,4 @@
 import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { AlertCard } from "@/components/dashboard/AlertCard";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -74,7 +73,7 @@ export default function Alerts() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       <main className="container py-8">
         <div className="mb-8">
           <Button variant="ghost" asChild className="mb-4">
@@ -146,8 +145,6 @@ export default function Alerts() {
           </TabsContent>
         </Tabs>
       </main>
-
-      <Footer />
     </div>
   );
 }

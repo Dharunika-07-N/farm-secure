@@ -17,11 +17,23 @@ Stores farmer/admin accounts.
 - `lastName` - User's last name
 - `role` - FARMER | ADMIN | INSPECTOR
 
+**Optional Profile Fields:**
+- `address` - User's physical address
+- `jobTitle` - Professional title (e.g., "Senior Farmer")
+- `avatarUrl` - Profile picture URL
+- `language` - Preferred language (default: 'en')
+
+**Settings Fields:**
+- `emailNotifications` - Boolean (default: true)
+- `smsNotifications` - Boolean (default: true)
+- `whatsappNotifications` - Boolean (default: false)
+- `shareData` - Boolean (default: true) - opt-in for data sharing
+
 **Sample Data:**
 ```sql
-INSERT INTO "User" (id, email, password, "firstName", "lastName", role, "isVerified", "createdAt", "updatedAt")
+INSERT INTO "User" (id, email, password, "firstName", "lastName", role, "isVerified", "createdAt", "updatedAt", "emailNotifications", "shareData")
 VALUES 
-  (gen_random_uuid(), 'farmer@example.com', '$2b$10$...', 'John', 'Doe', 'FARMER', true, NOW(), NOW());
+  (gen_random_uuid(), 'farmer@example.com', '$2b$10$...', 'John', 'Doe', 'FARMER', true, NOW(), NOW(), true, true);
 ```
 
 ---
@@ -36,11 +48,20 @@ Stores farm details linked to users.
 - `sizeUnit` - 'acres' | 'hectares'
 - `userId` - Reference to User
 
+**Detailed Fields:**
+- `registrationNumber` - Official gov registration ID
+- `livestockType` - e.g., 'Poultry', 'Pig', 'Mixed'
+- `animalCount` - Total head count (integer)
+- `establishmentDate` - Date of farm inception
+- `infrastructure` - Description of facilities (e.g., "Automated feeding")
+- `imageUrl` - Photo of farm
+- `latitude` / `longitude` - Precise GPS coordinates
+
 **Sample Data:**
 ```sql
-INSERT INTO "Farm" (id, name, location, size, "sizeUnit", "userId", "createdAt", "updatedAt")
+INSERT INTO "Farm" (id, name, location, size, "sizeUnit", "userId", "createdAt", "updatedAt", "livestockType", "animalCount")
 VALUES 
-  (gen_random_uuid(), 'Sunny Side Poultry', 'Karnataka, India', 50.5, 'acres', '<user-id>', NOW(), NOW());
+  (gen_random_uuid(), 'Sunny Side Poultry', 'Karnataka, India', 50.5, 'acres', '<user-id>', NOW(), NOW(), 'Poultry', 5000);
 ```
 
 ---

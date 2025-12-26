@@ -1,68 +1,14 @@
+import { useState, useEffect } from "react";
 import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Play, Clock, CheckCircle, Lock } from "lucide-react";
+import axios from "axios";
 
-const trainingModules = [
-  {
-    id: "1",
-    title: "Introduction to Biosecurity",
-    description: "Learn the fundamentals of farm biosecurity and why it matters for your livestock.",
-    duration: "15 min",
-    progress: 100,
-    status: "completed" as const,
-    category: "Basics",
-  },
-  {
-    id: "2",
-    title: "Disease Prevention Protocols",
-    description: "Understand common diseases affecting pigs and poultry and how to prevent them.",
-    duration: "25 min",
-    progress: 60,
-    status: "in-progress" as const,
-    category: "Prevention",
-  },
-  {
-    id: "3",
-    title: "Visitor Management",
-    description: "Best practices for managing visitors and vehicles entering your farm.",
-    duration: "20 min",
-    progress: 0,
-    status: "available" as const,
-    category: "Operations",
-  },
-  {
-    id: "4",
-    title: "Cleaning & Disinfection",
-    description: "Proper techniques for cleaning and disinfecting farm facilities and equipment.",
-    duration: "30 min",
-    progress: 0,
-    status: "available" as const,
-    category: "Operations",
-  },
-  {
-    id: "5",
-    title: "Emergency Response Planning",
-    description: "How to prepare for and respond to disease outbreaks on your farm.",
-    duration: "35 min",
-    progress: 0,
-    status: "locked" as const,
-    category: "Advanced",
-  },
-  {
-    id: "6",
-    title: "Regulatory Compliance",
-    description: "Understanding local and international biosecurity regulations and requirements.",
-    duration: "40 min",
-    progress: 0,
-    status: "locked" as const,
-    category: "Advanced",
-  },
-];
+const API_URL = "http://localhost:5000/api/v1";
 
-const statusStyles = {
+const statusStyles: any = {
   completed: { badge: "bg-success/10 text-success border-success/30", icon: CheckCircle },
   "in-progress": { badge: "bg-warning/10 text-warning border-warning/30", icon: Play },
   available: { badge: "bg-primary/10 text-primary border-primary/30", icon: Play },
@@ -70,13 +16,44 @@ const statusStyles = {
 };
 
 export default function Training() {
+  const [trainingModules, setTrainingModules] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchModules = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/training/modules`);
+        const modules = response.data.map((m: any) => ({
+          id: m.id,
+          title: m.name,
+          description: m.description,
+          duration: `${m.duration} min`,
+          progress: 0,
+          status: "available", // Default to available
+          category: m.category,
+        }));
+        setTrainingModules(modules);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching training modules:", error);
+        setLoading(false);
+      }
+    };
+    fetchModules();
+  }, []);
   const completedCount = trainingModules.filter(m => m.status === "completed").length;
   const overallProgress = (completedCount / trainingModules.length) * 100;
+
+  const handleModuleClick = (moduleId: string, isLocked: boolean) => {
+    if (!isLocked) {
+      window.location.href = `/training/${moduleId}`;
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       <main className="container py-8">
         <div className="mb-8">
           <Button variant="ghost" asChild className="mb-4">
@@ -119,9 +96,11 @@ export default function Training() {
             return (
               <div
                 key={module.id}
-                className={`rounded-2xl border border-border bg-card p-6 shadow-sm transition-all ${
-                  isLocked ? "opacity-60" : "hover:shadow-md hover:-translate-y-1"
-                }`}
+                onClick={() => handleModuleClick(module.id, isLocked)}
+                className={`rounded-2xl border border-border bg-card p-6 shadow-sm transition-all ${isLocked
+                  ? "opacity-60 cursor-not-allowed"
+                  : "cursor-pointer hover:shadow-md hover:-translate-y-1"
+                  }`}
               >
                 <div className="mb-4 flex items-start justify-between">
                   <Badge variant="outline" className={style.badge}>
@@ -151,23 +130,25 @@ export default function Training() {
                   size="sm"
                   className="w-full"
                   disabled={isLocked}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleModuleClick(module.id, isLocked);
+                  }}
                 >
                   <Icon className="h-4 w-4" />
                   {module.status === "completed"
                     ? "Review"
                     : module.status === "in-progress"
-                    ? "Continue"
-                    : module.status === "locked"
-                    ? "Locked"
-                    : "Start"}
+                      ? "Continue"
+                      : module.status === "locked"
+                        ? "Locked"
+                        : "Start"}
                 </Button>
               </div>
             );
           })}
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

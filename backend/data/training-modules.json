@@ -1,0 +1,274 @@
+[
+    {
+        "name": "Biosecurity Basics",
+        "description": "Introduction to fundamental biosecurity principles and practices for livestock farms. Learn how to protect your animals from disease threats.",
+        "duration": 45,
+        "level": "Beginner",
+        "category": "Biosecurity",
+        "objectives": [
+            "Understand the importance of biosecurity",
+            "Identify common disease threats",
+            "Implement basic prevention measures"
+        ],
+        "content": {
+            "sections": [
+                {
+                    "title": "What is Biosecurity?",
+                    "type": "video",
+                    "duration": 15,
+                    "content": "Biosecurity refers to measures taken to protect your farm from disease introduction and spread. It includes prevention, control, and containment strategies."
+                },
+                {
+                    "title": "Key Principles",
+                    "type": "reading",
+                    "duration": 20,
+                    "content": "The three pillars of biosecurity are: 1) Prevention - stopping diseases from entering, 2) Control - managing spread within the farm, 3) Containment - preventing spread to other farms."
+                },
+                {
+                    "title": "Assessment Quiz",
+                    "type": "quiz",
+                    "duration": 10,
+                    "questions": 5
+                }
+            ]
+        }
+    },
+    {
+        "name": "Disease Recognition",
+        "description": "Learn to identify early signs and symptoms of common livestock diseases. Early detection is crucial for effective disease management.",
+        "duration": 60,
+        "level": "Intermediate",
+        "category": "Health Management",
+        "objectives": [
+            "Recognize clinical signs of major diseases",
+            "Understand disease transmission pathways",
+            "Know when to call a veterinarian"
+        ],
+        "content": {
+            "sections": [
+                {
+                    "title": "Common Disease Symptoms",
+                    "type": "video",
+                    "duration": 25,
+                    "content": "Visual guide to identifying symptoms in poultry and pigs including respiratory distress, lethargy, reduced feed intake, and abnormal behavior."
+                },
+                {
+                    "title": "Disease Case Studies",
+                    "type": "reading",
+                    "duration": 25,
+                    "content": "Real-world examples of disease outbreaks and how early recognition led to successful containment."
+                },
+                {
+                    "title": "Recognition Test",
+                    "type": "quiz",
+                    "duration": 10,
+                    "questions": 8
+                }
+            ]
+        }
+    },
+    {
+        "name": "Vaccination Protocols",
+        "description": "Master proper vaccination techniques and scheduling for optimal herd immunity. Protect your livestock through effective immunization programs.",
+        "duration": 50,
+        "level": "Intermediate",
+        "category": "Prevention",
+        "objectives": [
+            "Develop vaccination schedules",
+            "Learn proper vaccine storage and handling",
+            "Understand vaccine administration techniques"
+        ],
+        "content": {
+            "sections": [
+                {
+                    "title": "Vaccine Types and Storage",
+                    "type": "video",
+                    "duration": 20,
+                    "content": "Overview of live, killed, and recombinant vaccines. Proper cold chain management and storage requirements."
+                },
+                {
+                    "title": "Administration Techniques",
+                    "type": "video",
+                    "duration": 20,
+                    "content": "Step-by-step guide to subcutaneous, intramuscular, and oral vaccine administration."
+                },
+                {
+                    "title": "Vaccination Quiz",
+                    "type": "quiz",
+                    "duration": 10,
+                    "questions": 6
+                }
+            ]
+        }
+    },
+    {
+        "name": "Hygiene and Sanitation",
+        "description": "Implement effective cleaning and disinfection protocols to maintain a disease-free environment on your farm.",
+        "duration": 55,
+        "level": "Beginner",
+        "category": "Biosecurity",
+        "objectives": [
+            "Select appropriate disinfectants",
+            "Implement cleaning protocols",
+            "Maintain hygiene standards"
+        ],
+        "content": {
+            "sections": [
+                {
+                    "title": "Cleaning Fundamentals",
+                    "type": "video",
+                    "duration": 20,
+                    "content": "The 6-step cleaning process: dry cleaning, pre-soaking, washing, rinsing, drying, and disinfection."
+                },
+                {
+                    "title": "Disinfectant Selection Guide",
+                    "type": "reading",
+                    "duration": 25,
+                    "content": "Comparison of quaternary ammonium, chlorine-based, iodine, and peroxygen disinfectants."
+                },
+                {
+                    "title": "Sanitation Assessment",
+                    "type": "quiz",
+                    "duration": 10,
+                    "questions": 7
+                }
+            ]
+        }
+    },
+    {
+        "name": "Visitor Management",
+        "description": "Control farm access and manage visitors to minimize disease introduction risks. Learn best practices for visitor protocols.",
+        "duration": 40,
+        "level": "Beginner",
+        "category": "Operations",
+        "objectives": [
+            "Establish visitor protocols",
+            "Implement access control measures",
+            "Maintain visitor logs"
+        ],
+        "content": {
+            "sections": [
+                {
+                    "title": "Visitor Risk Assessment",
+                    "type": "reading",
+                    "duration": 15,
+                    "content": "Understanding disease risks from different visitor types and recent farm contact history."
+                },
+                {
+                    "title": "Access Control Procedures",
+                    "type": "video",
+                    "duration": 15,
+                    "content": "Setting up biosecurity zones, shower facilities, and protective clothing requirements."
+                },
+                {
+                    "title": "Management Quiz",
+                    "type": "quiz",
+                    "duration": 10,
+                    "questions": 5
+                }
+            ]
+        }
+    },
+    {
+        "name": "Emergency Response",
+        "description": "Prepare for and respond to disease outbreaks effectively. Learn emergency protocols and rapid response procedures.",
+        "duration": 70,
+        "level": "Advanced",
+        "category": "Crisis Management",
+        "objectives": [
+            "Develop emergency response plans",
+            "Implement quarantine procedures",
+            "Coordinate with authorities"
+        ],
+        "content": {
+            "sections": [
+                {
+                    "title": "Outbreak Detection",
+                    "type": "video",
+                    "duration": 25,
+                    "content": "Recognizing outbreak patterns and triggering emergency protocols."
+                },
+                {
+                    "title": "Containment Strategies",
+                    "type": "video",
+                    "duration": 25,
+                    "content": "Quarantine procedures, movement restrictions, and depopulation protocols."
+                },
+                {
+                    "title": "Emergency Response Simulation",
+                    "type": "quiz",
+                    "duration": 20,
+                    "questions": 10
+                }
+            ]
+        }
+    },
+    {
+        "name": "Record Keeping",
+        "description": "Maintain accurate farm records for traceability and compliance. Essential for disease investigation and regulatory requirements.",
+        "duration": 35,
+        "level": "Beginner",
+        "category": "Operations",
+        "objectives": [
+            "Understand record-keeping requirements",
+            "Implement digital record systems",
+            "Ensure regulatory compliance"
+        ],
+        "content": {
+            "sections": [
+                {
+                    "title": "Essential Farm Records",
+                    "type": "reading",
+                    "duration": 15,
+                    "content": "Animal movements, medication logs, vaccination records, visitor logs, and mortality records."
+                },
+                {
+                    "title": "Digital Record Systems",
+                    "type": "video",
+                    "duration": 12,
+                    "content": "Using Farm-Secure and other digital tools for efficient record management."
+                },
+                {
+                    "title": "Compliance Check",
+                    "type": "quiz",
+                    "duration": 8,
+                    "questions": 4
+                }
+            ]
+        }
+    },
+    {
+        "name": "Feed Safety",
+        "description": "Ensure feed quality and safety to prevent disease transmission through contaminated feed. Learn proper feed storage and handling.",
+        "duration": 45,
+        "level": "Intermediate",
+        "category": "Prevention",
+        "objectives": [
+            "Identify feed contamination risks",
+            "Implement safe storage practices",
+            "Monitor feed quality"
+        ],
+        "content": {
+            "sections": [
+                {
+                    "title": "Feed-borne Disease Risks",
+                    "type": "reading",
+                    "duration": 20,
+                    "content": "How diseases like African Swine Fever can spread through contaminated feed ingredients."
+                },
+                {
+                    "title": "Storage and Handling",
+                    "type": "video",
+                    "duration": 15,
+                    "content": "Proper feed storage, pest control, and contamination prevention measures."
+                },
+                {
+                    "title": "Feed Safety Quiz",
+                    "type": "quiz",
+                    "duration": 10,
+                    "questions": 6
+                }
+            ]
+        }
+    }
+]

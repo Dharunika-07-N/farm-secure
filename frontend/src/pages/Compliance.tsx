@@ -1,14 +1,13 @@
 import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { 
-  ArrowLeft, 
-  FileText, 
-  CheckCircle, 
-  Circle, 
+import {
+  ArrowLeft,
+  FileText,
+  CheckCircle,
+  Circle,
   Download,
   Upload,
   Calendar
@@ -79,7 +78,7 @@ export default function Compliance() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       <main className="container py-8">
         <div className="mb-8">
           <Button variant="ghost" asChild className="mb-4">
@@ -194,8 +193,6 @@ export default function Compliance() {
           </TabsContent>
         </Tabs>
       </main>
-
-      <Footer />
     </div>
   );
 }

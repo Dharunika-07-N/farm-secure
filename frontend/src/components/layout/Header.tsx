@@ -27,11 +27,13 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { NavLink } from "@/components/NavLink";
 import { getCurrentUser, logout } from "@/services/auth.service";
+import { NotificationDropdown } from "@/components/NotificationDropdown";
 
 const navItems = [
   { label: "Dashboard", href: "/dashboard" },
   { label: "Risk Assessment", href: "/risk-assessment" },
   { label: "Disease Map", href: "/disease-map" },
+  { label: "Analytics", href: "/analytics" },
   { label: "Training", href: "/training" },
   { label: "Alerts", href: "/alerts" },
   { label: "Compliance", href: "/compliance" },
@@ -66,12 +68,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon" className="relative">
-            <Bell className="h-5 w-5" />
-            <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-warning text-[10px] font-bold text-warning-foreground">
-              3
-            </span>
-          </Button>
+          <NotificationDropdown />
 
 
           <div className="hidden md:flex items-center gap-3 pl-2 border-l border-border/40">
