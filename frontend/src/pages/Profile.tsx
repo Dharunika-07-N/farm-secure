@@ -964,7 +964,7 @@ export default function Profile() {
                                         max={200}
                                         min={5}
                                         step={5}
-                                        onValueCommit={(val) => handleToggle('alertRadius', val[0])}
+                                        onValueCommit={(val) => handleToggle('alertRadius', val[0] as any)}
                                         onValueChange={(val) => setSettingsForm({ ...settingsForm, alertRadius: val[0] })}
                                     />
                                     <div className="flex justify-between text-[10px] text-muted-foreground uppercase font-bold">
