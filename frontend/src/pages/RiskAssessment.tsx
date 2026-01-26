@@ -7,10 +7,19 @@ import { Progress } from "@/components/ui/progress";
 import { Card } from "@/components/ui/card";
 import { ArrowLeft, Download, RefreshCw, CheckCircle2, ChevronRight } from "lucide-react";
 import api from "@/lib/api";
+import { generateRiskPDF } from "@/utils/pdfGenerator";
+import { getCurrentUser } from "@/services/auth.service";
 
 export default function RiskAssessment() {
   const [assessmentComplete, setAssessmentComplete] = useState(false);
   const [result, setResult] = useState<any>(null);
+  const user = getCurrentUser();
+
+  const handleDownload = () => {
+    if (result) {
+      generateRiskPDF(result, user);
+    }
+  };
 
   const handleComplete = async (assessmentResult: any) => {
     setResult(assessmentResult);
@@ -60,8 +69,8 @@ export default function RiskAssessment() {
             <Card className="p-8 shadow-xl border-primary/10 overflow-hidden relative">
               <div className="absolute top-0 right-0 p-4">
                 <span className={`px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-wider ${result?.level === 'low' ? 'bg-success/10 text-success' :
-                    result?.level === 'medium' ? 'bg-warning/10 text-warning' :
-                      'bg-destructive/10 text-destructive'
+                  result?.level === 'medium' ? 'bg-warning/10 text-warning' :
+                    'bg-destructive/10 text-destructive'
                   }`}>
                   {result?.level} Risk
                 </span>
@@ -145,7 +154,7 @@ export default function RiskAssessment() {
                     <RefreshCw className="mr-2 h-4 w-4" />
                     Retake Assessment
                   </Button>
-                  <Button className="shadow-lg shadow-primary/20">
+                  <Button onClick={handleDownload} className="shadow-lg shadow-primary/20">
                     <Download className="mr-2 h-4 w-4" />
                     Download PDF Report
                   </Button>

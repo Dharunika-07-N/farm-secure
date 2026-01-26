@@ -25,6 +25,7 @@ model User {
   emailNotifications    Boolean   @default(true)
   smsNotifications      Boolean   @default(true)
   whatsappNotifications Boolean   @default(false)
+  alertRadius           Float     @default(50.0) // Preferred radius for alerts in km
   
   // Privacy Settings
   shareData             Boolean   @default(true)
@@ -64,6 +65,8 @@ model Farm {
   alerts             Alert[]
   compliance         Compliance[]
   Staff              Staff[]
+  visitorLogs        VisitorLog[]
+  animalBatches      AnimalBatch[]
   createdAt          DateTime      @default(now())
   updatedAt          DateTime      @updatedAt
 }
@@ -159,12 +162,23 @@ model Alert {
 }
 
 model Compliance {
-  id          String   @id @default(uuid())
-  name        String   
-  completed   Boolean  @default(false)
-  date        DateTime @default(now())
-  farmId      String
-  farm        Farm     @relation(fields: [farmId], references: [id], onDelete: Cascade)
+  id            String           @id @default(uuid())
+  name          String
+  description   String?
+  status        ComplianceStatus @default(NOT_STARTED)
+  notes         String?
+  dueDate       DateTime?
+  attachmentUrl String?          // For evidence photos/documents
+  date          DateTime         @default(now())
+  farmId        String
+  farm          Farm             @relation(fields: [farmId], references: [id], onDelete: Cascade)
+}
+
+enum ComplianceStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+  EXPIRED
 }
 
 model Outbreak {
@@ -259,6 +273,63 @@ model Disease {
   mortality           String?
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
+}
+
+model AnimalBatch {
+  id              String         @id @default(uuid())
+  batchNumber     String         @unique
+  species         String         // Poultry, Pig
+  breed           String?
+  quantity        Int
+  arrivalDate     DateTime
+  source          String?
+  status          String         @default("ACTIVE") // ACTIVE, SOLD, CULLED, DECEASED
+  farmId          String
+  farm            Farm           @relation(fields: [farmId], references: [id], onDelete: Cascade)
+  movements       MovementLog[]
+  mortality       MortalityRecord[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+model MovementLog {
+  id            String      @id @default(uuid())
+  batchId       String
+  batch         AnimalBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  type          String      // INTERNAL, EXTERNAL_IN, EXTERNAL_OUT
+  fromLocation  String?
+  toLocation    String?
+  quantity      Int
+  date          DateTime    @default(now())
+  reason        String?
+  createdAt     DateTime    @default(now())
+}
+
+model VisitorLog {
+  id                String   @id @default(uuid())
+  visitorName       String
+  organization      String?
+  purpose           String
+  phone             String?
+  entryTime         DateTime @default(now())
+  exitTime          DateTime?
+  biosecurityPass   Boolean  @default(false)
+  disinfected       Boolean  @default(false)
+  farmId            String
+  farm              Farm     @relation(fields: [farmId], references: [id], onDelete: Cascade)
+  createdAt         DateTime @default(now())
+}
+
+model MortalityRecord {
+  id          String      @id @default(uuid())
+  batchId     String
+  batch       AnimalBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  quantity    Int
+  cause       String?     // Disease name or "Unknown"
+  date        DateTime    @default(now())
+  symptoms    String?
+  notes       String?
+  createdAt   DateTime    @default(now())
 }
 
 model DiseaseStatistic {

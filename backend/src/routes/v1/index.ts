@@ -12,6 +12,8 @@ import riskAssessmentRoutes from './risk-assessment.routes';
 import staffRoutes from './staff.routes';
 import trainingRoutes from '../training.routes';
 import diseaseRoutes from '../disease.routes';
+import livestockRoutes from './livestock.routes';
+import visitorRoutes from './visitor.routes';
 
 const router = Router();
 
@@ -26,6 +28,8 @@ router.use('/sync', syncRoutes);
 router.use('/notifications', notificationRoutes);
 router.use('/risk-assessment', riskAssessmentRoutes);
 router.use('/staff', staffRoutes);
+router.use('/livestock', livestockRoutes);
+router.use('/visitors', visitorRoutes);
 // ... existing imports
 import analyticsRoutes from '../analytics.routes';
 

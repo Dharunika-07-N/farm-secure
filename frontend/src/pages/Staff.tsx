@@ -30,6 +30,7 @@ import {
 import { getStaff, createStaff, Staff } from "@/services/staff.service";
 import { getFarms } from "@/services/farm.service";
 import { toast } from "@/components/ui/use-toast";
+import { RecommendedTraining } from "@/components/training/RecommendedTraining";
 
 export default function StaffManagement() {
     const [staff, setStaff] = useState<Staff[]>([]);
@@ -228,6 +229,10 @@ export default function StaffManagement() {
                         value={searchTerm}
                         onChange={e => setSearchTerm(e.target.value)}
                     />
+                </div>
+
+                <div className="mb-8">
+                    <RecommendedTraining />
                 </div>
 
                 {loading ? (

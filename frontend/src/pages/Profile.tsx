@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
+import { Slider } from "@/components/ui/slider";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -31,7 +32,8 @@ import {
     Syringe,
     FileCheck,
     Plus,
-    UploadIcon as Upload
+    UploadIcon as Upload,
+    Bell
 } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import { getCurrentUser, updateProfile } from "@/services/auth.service";
@@ -248,6 +250,7 @@ export default function Profile() {
                         smsNotifications: (currentUser as any).smsNotifications ?? true,
                         whatsappNotifications: (currentUser as any).whatsappNotifications ?? false,
                         shareData: (currentUser as any).shareData ?? true,
+                        alertRadius: (currentUser as any).alertRadius ?? 50,
                     });
 
                     if (farm) {
@@ -943,6 +946,32 @@ export default function Profile() {
                                         checked={settingsForm.emailNotifications}
                                         onCheckedChange={(val) => handleToggle('emailNotifications', val)}
                                     />
+                                </div>
+                                <Separator />
+                                <div className="space-y-4 pt-4">
+                                    <div className="flex justify-between items-center">
+                                        <div className="space-y-0.5">
+                                            <Label className="flex items-center gap-2">
+                                                <AlertTriangle className="h-4 w-4 text-warning" />
+                                                Outbreak Alert Radius
+                                            </Label>
+                                            <p className="text-sm text-muted-foreground">Get notified about outbreaks within this range.</p>
+                                        </div>
+                                        <span className="text-lg font-bold text-primary">{settingsForm.alertRadius} km</span>
+                                    </div>
+                                    <Slider
+                                        defaultValue={[settingsForm.alertRadius]}
+                                        max={200}
+                                        min={5}
+                                        step={5}
+                                        onValueCommit={(val) => handleToggle('alertRadius', val[0])}
+                                        onValueChange={(val) => setSettingsForm({ ...settingsForm, alertRadius: val[0] })}
+                                    />
+                                    <div className="flex justify-between text-[10px] text-muted-foreground uppercase font-bold">
+                                        <span>5 km</span>
+                                        <span>100 km</span>
+                                        <span>200 km</span>
+                                    </div>
                                 </div>
                             </CardContent>
                         </Card>

@@ -15,6 +15,10 @@ import Profile from "./pages/Profile";
 import Staff from "./pages/Staff";
 import HelpSupport from "./pages/HelpSupport";
 import Analytics from "./pages/Analytics";
+import Livestock from "./pages/Livestock";
+import Visitors from "./pages/Visitors";
+
+import { SyncStatus } from "./components/SyncStatus";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +27,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <SyncStatus />
       <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <Routes>
           <Route path="/" element={<Navigate to="/login" replace />} />
@@ -37,6 +42,8 @@ const App = () => (
           <Route path="/staff" element={<Staff />} />
           <Route path="/help-support" element={<HelpSupport />} />
           <Route path="/analytics" element={<Analytics />} />
+          <Route path="/livestock" element={<Livestock />} />
+          <Route path="/visitors" element={<Visitors />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -4,14 +4,28 @@ import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter
+} from "@/components/ui/dialog";
+import {
   ArrowLeft,
   FileText,
   CheckCircle,
   Circle,
   Download,
   Upload,
-  Calendar
+  Calendar,
+  AlertCircle,
+  Clock,
+  FileSearch,
+  CheckCircle2,
+  Trash2
 } from "lucide-react";
+import { generateCompliancePDF } from "@/utils/compliancePdf";
 
 const complianceCategories = [
   {
@@ -87,12 +101,20 @@ export default function Compliance() {
               Back to Dashboard
             </a>
           </Button>
-          <h1 className="text-2xl font-bold text-foreground md:text-3xl">
-            Compliance Tracking
-          </h1>
-          <p className="text-muted-foreground">
-            Monitor your regulatory compliance status and manage required documentation.
-          </p>
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h1 className="text-2xl font-bold text-foreground md:text-3xl">
+                Compliance Tracking
+              </h1>
+              <p className="text-muted-foreground">
+                Monitor your regulatory compliance status and manage required documentation.
+              </p>
+            </div>
+            <Button variant="outline" onClick={() => generateCompliancePDF(complianceCategories, "Sunny Side Poultry")}>
+              <FileSearch className="mr-2 h-4 w-4" />
+              Generate Audit Report
+            </Button>
+          </div>
         </div>
 
         {/* Overall Progress */}
