@@ -17,6 +17,8 @@ import HelpSupport from "./pages/HelpSupport";
 import Analytics from "./pages/Analytics";
 import Livestock from "./pages/Livestock";
 import Visitors from "./pages/Visitors";
+import Inventory from "./pages/Inventory";
+import Transactions from "./pages/Transactions";
 
 import { SyncStatus } from "./components/SyncStatus";
 
@@ -44,6 +46,8 @@ const App = () => (
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/livestock" element={<Livestock />} />
           <Route path="/visitors" element={<Visitors />} />
+          <Route path="/inventory" element={<Inventory />} />
+          <Route path="/transactions" element={<Transactions />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

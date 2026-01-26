@@ -17,7 +17,10 @@ import {
   RefreshCw,
   Map,
   Loader2,
-  Warehouse
+  Warehouse,
+  Package,
+  Receipt,
+  BarChart3
 } from "lucide-react";
 import { getDashboardData, DashboardData, Alert as AlertType, Compliance as ComplianceType } from "@/services/dashboard.service";
 import { useTranslation } from "react-i18next";
@@ -158,29 +161,53 @@ export default function Dashboard() {
                 {/* Quick Actions */}
                 <div className="mt-6 rounded-2xl border border-border bg-card p-6 shadow-sm">
                   <h3 className="mb-4 text-lg font-semibold text-foreground">Quick Actions</h3>
-                  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                    <Button variant="outline" className="h-auto flex-col gap-2 py-4" asChild>
+                  <div className="grid gap-3 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
+                    <Button variant="outline" className="h-auto flex-col gap-2 py-4 hover:border-primary/50 hover:bg-primary/5 transition-all" asChild>
                       <a href="/livestock">
                         <Warehouse className="h-5 w-5 text-primary" />
-                        <span>Livestock Management</span>
+                        <span className="text-[10px] font-bold uppercase tracking-tight">Livestock</span>
                       </a>
                     </Button>
-                    <Button variant="outline" className="h-auto flex-col gap-2 py-4" asChild>
+                    <Button variant="outline" className="h-auto flex-col gap-2 py-4 hover:border-info/50 hover:bg-info/5 transition-all" asChild>
                       <a href="/visitors">
                         <Users className="h-5 w-5 text-info" />
-                        <span>Visitor Logs</span>
+                        <span className="text-[10px] font-bold uppercase tracking-tight">Visitors</span>
                       </a>
                     </Button>
-                    <Button variant="outline" className="h-auto flex-col gap-2 py-4" asChild>
+                    <Button variant="outline" className="h-auto flex-col gap-2 py-4 hover:border-success/50 hover:bg-success/5 transition-all" asChild>
+                      <a href="/inventory">
+                        <Package className="h-5 w-5 text-success" />
+                        <span className="text-[10px] font-bold uppercase tracking-tight">Inventory</span>
+                      </a>
+                    </Button>
+                    <Button variant="outline" className="h-auto flex-col gap-2 py-4 hover:border-warning/50 hover:bg-warning/5 transition-all" asChild>
+                      <a href="/transactions">
+                        <Receipt className="h-5 w-5 text-warning" />
+                        <span className="text-[10px] font-bold uppercase tracking-tight">Finance</span>
+                      </a>
+                    </Button>
+                    <Button variant="outline" className="h-auto flex-col gap-2 py-4 hover:border-destructive/50 hover:bg-destructive/5 transition-all" asChild>
+                      <a href="/disease-map">
+                        <Map className="h-5 w-5 text-destructive" />
+                        <span className="text-[10px] font-bold uppercase tracking-tight">Map</span>
+                      </a>
+                    </Button>
+                    <Button variant="outline" className="h-auto flex-col gap-2 py-4 hover:border-primary/50 hover:bg-primary/5 transition-all" asChild>
+                      <a href="/risk-assessment">
+                        <Activity className="h-5 w-5 text-primary" />
+                        <span className="text-[10px] font-bold uppercase tracking-tight">Risk</span>
+                      </a>
+                    </Button>
+                    <Button variant="outline" className="h-auto flex-col gap-2 py-4 hover:border-success/50 hover:bg-success/5 transition-all" asChild>
                       <a href="/compliance">
                         <FileCheck className="h-5 w-5 text-success" />
-                        <span>Compliance Tracking</span>
+                        <span className="text-[10px] font-bold uppercase tracking-tight">Compliance</span>
                       </a>
                     </Button>
-                    <Button variant="outline" className="h-auto flex-col gap-2 py-4" asChild>
-                      <a href="/staff">
-                        <Users className="h-5 w-5 text-warning" />
-                        <span>Staff Training</span>
+                    <Button variant="outline" className="h-auto flex-col gap-2 py-4 hover:border-warning/50 hover:bg-warning/5 transition-all" asChild>
+                      <a href="/analytics">
+                        <BarChart3 className="h-5 w-5 text-warning" />
+                        <span className="text-[10px] font-bold uppercase tracking-tight">Analytics</span>
                       </a>
                     </Button>
                   </div>
