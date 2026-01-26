@@ -34,3 +34,23 @@ export const updateProfile = asyncHandler(async (req: Request, res: Response) =>
     user: updatedUser
   });
 });
+
+export const sendOTP = asyncHandler(async (req: Request, res: Response) => {
+  const { identifier } = req.body;
+  const result = await authService.sendOTP(identifier);
+  res.status(200).json({
+    success: true,
+    ...result
+  });
+});
+
+export const loginWithOTP = asyncHandler(async (req: Request, res: Response) => {
+  const { identifier, otp } = req.body;
+  const { user, token } = await authService.loginWithOTP(identifier, otp);
+  res.status(200).json({
+    success: true,
+    message: 'Login successful',
+    user,
+    token
+  });
+});

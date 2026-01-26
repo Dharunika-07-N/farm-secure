@@ -14,19 +14,27 @@ import { notifyUsersOfNewOutbreaks } from '../services/notification.service';
 export const initializeCronJobs = () => {
     console.log('[Cron] Initializing scheduled jobs...');
 
-    // Daily ProMED sync at 2:00 AM
+    // Daily outbreak data sync at 2:00 AM (ProMED + WAHIS)
     cron.schedule('0 2 * * *', async () => {
-        console.log('[Cron] Running daily ProMED sync...');
+        console.log('[Cron] Running daily outbreak data sync...');
         try {
-            const result = await syncProMEDData();
-            console.log(`[Cron] ProMED sync completed: ${result.synced} synced, ${result.skipped} skipped, ${result.errors} errors`);
+            // Sync ProMED data
+            const promedResult = await syncProMEDData();
+            console.log(`[Cron] ProMED sync completed: ${promedResult.synced} synced, ${promedResult.skipped} skipped, ${promedResult.errors} errors`);
 
-            // Notify users of new outbreaks
-            if (result.synced > 0) {
+            // Sync WAHIS data
+            const { syncWAHISData } = await import('../services/wahis.service');
+            const wahisResult = await syncWAHISData();
+            console.log(`[Cron] WAHIS sync completed: ${wahisResult.synced} synced, ${wahisResult.errors} errors`);
+
+            // Notify users if any new outbreaks were detected
+            const totalNewOutbreaks = promedResult.synced + wahisResult.synced;
+            if (totalNewOutbreaks > 0) {
+                console.log(`[Cron] Notifying users of ${totalNewOutbreaks} new outbreaks...`);
                 await notifyUsersOfNewOutbreaks();
             }
         } catch (error) {
-            console.error('[Cron] ProMED sync failed:', error);
+            console.error('[Cron] Outbreak sync failed:', error);
         }
     });
 
@@ -61,7 +69,7 @@ export const initializeCronJobs = () => {
     });
 
     console.log('[Cron] ✅ Scheduled jobs initialized:');
-    console.log('  - Daily ProMED sync: 2:00 AM');
+    console.log('  - Daily outbreak sync (ProMED + WAHIS): 2:00 AM');
     console.log('  - Weekly cleanup: Sunday 3:00 AM');
     console.log('  - Hourly health check');
 };

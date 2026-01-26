@@ -1,0 +1,24 @@
+{
+  "common": {
+    "dashboard": "Dashboard",
+    "risk_assessment": "Risk Assessment",
+    "disease_map": "Disease Map",
+    "analytics": "Analytics",
+    "compliance": "Compliance",
+    "staff": "Staff",
+    "profile": "Profile",
+    "logout": "Logout",
+    "search": "Search...",
+    "back_to_dashboard": "Back to Dashboard"
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "biosecurity_score": "Biosecurity Score",
+    "active_protocols": "Active Protocols",
+    "open_alerts": "Open Alerts",
+    "recent_alerts": "Recent Alerts",
+    "current_weather": "Current Weather",
+    "risk_level": "Risk Level",
+    "quick_actions": "Quick Actions"
+  }
+}

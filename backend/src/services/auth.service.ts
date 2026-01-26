@@ -65,3 +65,69 @@ export const updateUser = async (userId: string, data: Partial<Prisma.UserUpdate
   const { password, ...userWithoutPassword } = user;
   return userWithoutPassword;
 };
+
+/**
+ * Send OTP to user (Mock)
+ * @param {string} identifier (email or phone)
+ */
+export const sendOTP = async (identifier: string) => {
+  const user = await prisma.user.findFirst({
+    where: {
+      OR: [
+        { email: identifier },
+        { phone: identifier }
+      ]
+    }
+  });
+
+  if (!user) {
+    throw new ApiError(404, 'User not found with this identifier');
+  }
+
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  const otpExpiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: { otp, otpExpiresAt }
+  });
+
+  console.log(`[MOCK SMS/EMAIL] To: ${identifier}, OTP: ${otp}`);
+
+  return { message: 'OTP sent successfully', identifier };
+};
+
+/**
+ * Login with OTP
+ * @param {string} identifier
+ * @param {string} otp
+ */
+export const loginWithOTP = async (identifier: string, otp: string) => {
+  const user = await prisma.user.findFirst({
+    where: {
+      OR: [
+        { email: identifier },
+        { phone: identifier }
+      ],
+      otp,
+      otpExpiresAt: { gt: new Date() }
+    },
+    include: { farms: true }
+  });
+
+  if (!user) {
+    throw new ApiError(401, 'Invalid or expired OTP');
+  }
+
+  // Clear OTP after use
+  await prisma.user.update({
+    where: { id: user.id },
+    data: { otp: null, otpExpiresAt: null }
+  });
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { password, ...userWithoutPassword } = user;
+  const token = jwt.sign({ sub: user.id, role: user.role }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN as any });
+
+  return { user: userWithoutPassword, token };
+};

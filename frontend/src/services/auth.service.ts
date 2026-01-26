@@ -70,3 +70,17 @@ export const updateProfile = async (data: Partial<User>) => {
     }
     return response.data;
 };
+
+export const sendOTP = async (identifier: string) => {
+    const response = await api.post<{ success: boolean; message: string }>('/auth/send-otp', { identifier });
+    return response.data;
+};
+
+export const loginWithOTP = async (identifier: string, otp: string) => {
+    const response = await api.post<AuthResponse>('/auth/login-otp', { identifier, otp });
+    if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+    }
+    return response.data;
+};

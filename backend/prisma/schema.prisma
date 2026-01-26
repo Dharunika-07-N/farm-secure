@@ -29,6 +29,10 @@ model User {
   // Privacy Settings
   shareData             Boolean   @default(true)
 
+  // OTP
+  otp                   String?
+  otpExpiresAt          DateTime?
+
   farms         Farm[]
   notifications Notification[]
   RiskAssessment RiskAssessment[]
@@ -287,6 +291,7 @@ model BiosecurityIndicator {
   importanceWeight       Float
   evidenceSource         String
   applicableTo           String   // Both, Pig, Poultry
+  category               String   @default("General") // e.g., "Personnel", "Animal Movement", etc.
   poorPracticePrevalence Float
   createdAt              DateTime @default(now())
 }

@@ -19,9 +19,11 @@ import {
   Loader2
 } from "lucide-react";
 import { getDashboardData, DashboardData, Alert as AlertType, Compliance as ComplianceType } from "@/services/dashboard.service";
+import { useTranslation } from "react-i18next";
 
 export default function Dashboard() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -52,9 +54,9 @@ export default function Dashboard() {
   }, []);
 
   const stats = data ? [
-    { title: "Biosecurity Score", value: data.stats.biosecurityScore, icon: Shield, variant: "success" as const, trend: { value: 5, isPositive: true } },
-    { title: "Active Protocols", value: data.stats.activeProtocols, icon: Activity, variant: "info" as const },
-    { title: "Open Alerts", value: data.stats.openAlerts, icon: AlertTriangle, variant: "warning" as const },
+    { title: t("dashboard.biosecurity_score"), value: data.stats.biosecurityScore, icon: Shield, variant: "success" as const, trend: { value: 5, isPositive: true } },
+    { title: t("dashboard.active_protocols"), value: data.stats.activeProtocols, icon: Activity, variant: "info" as const },
+    { title: t("dashboard.open_alerts"), value: data.stats.openAlerts, icon: AlertTriangle, variant: "warning" as const },
   ] : [];
 
   return (
@@ -66,10 +68,10 @@ export default function Dashboard() {
         <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="text-2xl font-bold text-foreground md:text-3xl">
-              Welcome back, Farmer
+              {t("dashboard.welcome")}, Farmer
             </h1>
             <p className="text-muted-foreground">
-              Here's an overview of your farm's biosecurity status
+              {t("dashboard.recent_alerts")}
             </p>
           </div>
           <div className="flex gap-2">

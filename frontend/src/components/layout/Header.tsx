@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 import {
   Menu,
@@ -15,6 +17,7 @@ import {
   Tractor,
   MapPin
 } from "lucide-react";
+// ... (rest of imports)
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,18 +32,19 @@ import { NavLink } from "@/components/NavLink";
 import { getCurrentUser, logout } from "@/services/auth.service";
 import { NotificationDropdown } from "@/components/NotificationDropdown";
 
-const navItems = [
-  { label: "Dashboard", href: "/dashboard" },
-  { label: "Risk Assessment", href: "/risk-assessment" },
-  { label: "Disease Map", href: "/disease-map" },
-  { label: "Analytics", href: "/analytics" },
-  { label: "Alerts", href: "/alerts" },
-  { label: "Compliance", href: "/compliance" },
-];
-
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const user = getCurrentUser();
+  const { t } = useTranslation();
+
+  const navItems = [
+    { label: t("common.dashboard"), href: "/dashboard" },
+    { label: t("common.risk_assessment"), href: "/risk-assessment" },
+    { label: t("common.disease_map"), href: "/disease-map" },
+    { label: t("common.analytics"), href: "/analytics" },
+    { label: "Alerts", href: "/alerts" }, // Need to add to translation
+    { label: t("common.compliance"), href: "/compliance" },
+  ];
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-card/80 backdrop-blur-lg">
@@ -67,6 +71,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <LanguageSwitcher />
           <NotificationDropdown />
 
 

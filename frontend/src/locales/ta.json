@@ -1,0 +1,24 @@
+{
+    "common": {
+        "dashboard": "டாஷ்போர்டு",
+        "risk_assessment": "ஆபத்து மதிப்பீடு",
+        "disease_map": "நோய் வரைபடம்",
+        "analytics": "பகுப்பாய்வு",
+        "compliance": "இணக்கம்",
+        "staff": "பணியாளர்கள்",
+        "profile": "சுயவிவரம்",
+        "logout": "வெளியேறு",
+        "search": "தேடு...",
+        "back_to_dashboard": "டாஷ்போர்டுக்கு திரும்பு"
+    },
+    "dashboard": {
+        "welcome": "மீண்டும் வருக",
+        "biosecurity_score": "உயிர் பாதுகாப்பு மதிப்பெண்",
+        "active_protocols": "செயலில் உள்ள நெறிமுறைகள்",
+        "open_alerts": "திறந்த விழிப்பூட்டல்கள்",
+        "recent_alerts": "சமீபத்திய விழிப்பூட்டல்கள்",
+        "current_weather": "தற்போதைய வானிலை",
+        "risk_level": "ஆபத்து நிலை",
+        "quick_actions": "விரைவான நடவடிக்கைகள்"
+    }
+}

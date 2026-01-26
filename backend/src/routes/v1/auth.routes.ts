@@ -7,6 +7,8 @@ const router = Router();
 
 router.post('/register', validate(registerSchema), authController.register);
 router.post('/login', validate(loginSchema), authController.login);
+router.post('/send-otp', authController.sendOTP);
+router.post('/login-otp', authController.loginWithOTP);
 
 import { protect } from '@/middleware/auth.middleware';
 router.patch('/profile', protect, authController.updateProfile);
