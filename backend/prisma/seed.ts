@@ -72,11 +72,11 @@ async function main() {
     // 5. Create Compliance Tasks
     await prisma.compliance.createMany({
         data: [
-            { name: "Daily Water Quality Check", completed: true, farmId: farm.id },
-            { name: "Weekly Disinfection", completed: false, farmId: farm.id },
-            { name: "Vaccination Schedule Review", completed: false, farmId: farm.id },
-            { name: "Visitor Log Update", completed: true, farmId: farm.id },
-            { name: "Rodent Control Inspection", completed: true, farmId: farm.id }
+            { name: "Daily Water Quality Check", status: 'COMPLETED', farmId: farm.id },
+            { name: "Weekly Disinfection", status: 'NOT_STARTED', farmId: farm.id },
+            { name: "Vaccination Schedule Review", status: 'IN_PROGRESS', farmId: farm.id },
+            { name: "Visitor Log Update", status: 'COMPLETED', farmId: farm.id },
+            { name: "Rodent Control Inspection", status: 'COMPLETED', farmId: farm.id }
         ]
     });
 
