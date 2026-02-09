@@ -395,7 +395,7 @@ async function createDemoUser() {
     const user = await prisma.user.create({
         data: {
             email: 'admin@farmsecure.com',
-            password: '$2b$10$placeholder', // Replace with actual hashed password
+            password: '$2b$10$.UnbxFXwGC66uhCRDhqTYO7AXBXxN8bu1ZFVLNUifWYqfP1z10iL6', // Hash for 'password123'
             firstName: 'Admin',
             lastName: 'User',
             phone: '+91-9876543210',

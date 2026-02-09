@@ -11,7 +11,8 @@
     "lint": "eslint . --ext .ts",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
-    "prisma:studio": "prisma studio"
+    "prisma:studio": "prisma studio",
+    "seed": "ts-node scripts/import-realworld-data.ts"
   },
   "keywords": [
     "farm",
